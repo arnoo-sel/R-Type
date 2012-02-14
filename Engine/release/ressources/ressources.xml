@@ -1,0 +1,20 @@
+<root>
+    <ressources>
+        <music id="GRUM" file="grum.ogg" />
+        <music id="__KO__" file="ko.ogg" />
+        <ships id="ships" />
+        <monsters id="monsters" />
+        <level id="LVL_0" file="level_0.xml" />
+        <level id="LVL_1" file="level_1.xml" />
+        <level id="LVL_2" file="level_2.xml" />
+        <level id="LVL_3" file="level_3.xml" />
+        <level id="LVL_4" file="level_4.xml" />
+        <level id="LVL_END" file="level_end.xml" />
+        <image id="BG" file="bg.jpg" />
+        <image id="FG" file="fg.png" />
+        <image id="HUD_IMG" file="hud.png" />
+        <bg id="LANDSCAPE" fg="FG" bg="BG" />
+        <network id="NETWORK" ships="ships" monsters="monsters" />
+        <input id="input" />
+    </ressources>
+</root>

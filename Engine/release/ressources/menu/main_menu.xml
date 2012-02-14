@@ -1,0 +1,8 @@
+<menu>
+    <elem text="Create Game">
+        <elem text="Friendly Fire Off" />
+        <elem text="Friendly Fire On" />
+    </elem>
+    <elem text="Join Game" />
+    <elem text="Quit" />
+</menu>

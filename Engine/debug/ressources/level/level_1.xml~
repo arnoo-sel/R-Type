@@ -1,0 +1,40 @@
+<level name="Introduction">
+	<ressources>
+        <image id="EPITECH" file="epitech.png" />
+        <image id="RTYPE" file="r-type.png" />
+        <sprite id="EPI_LOGO" image="EPITECH" />
+        <sprite id="RTYPE_LOGO" image="RTYPE" />
+        <text id="LOGINS" text="©2009-2010 - cedell_p / de-la-_o / jartho_d / moore_a / sellie_a" />
+        <menu id="MAIN" file="main_menu.xml" />
+	</ressources>
+    <script>
+        <bg time="0" id="display-LANDSCAPE" ressource="LANDSCAPE" do="display" length="23" a="0"/>
+        <bg time="4" id="trans-LANDSCAPE-a" ressource="LANDSCAPE" do="transition" property="a" from="1" to="255" length="5" />
+        
+        <text time="0" id="display-LOGINS" ressource="LOGINS" do="display" length="4" x="100" y="450" a="0" size="15" />
+        <text id="trans-LOGINS-a" time="0.3" ressource="LOGINS" do="transition" property="a" from="1" to="255" length="1" />
+        <text id="trans-LOGINS-a-down" time="2.5"  ressource="LOGINS" do="transition" property="a" from="255" to="0" length="1" />
+
+        <music time="1" ressource="GRUM" do="launch" />
+        <sprite id="display-EPI_LOGO" time="1" ressource="EPI_LOGO" do="display" x="26" y="100" sx="0.01" sy="0.01" r="0" a="0" length="6" />
+        
+        <sprite id="trans-EPI_LOGO-sx" time="1.05" ressource="EPI_LOGO" do="transition" property="sx" from="0.01" to="1" length="2.8" transition="square_up" />
+        <sprite id="trans-EPI_LOGO-sy" time="1.05" ressource="EPI_LOGO" do="transition" property="sy" from="0.01" to="1" length="2.8" transition="square_up" />
+        <sprite id="trans-EPI_LOGO-a" time="1.05" ressource="EPI_LOGO" do="transition" property="a" from="1" to="255" length="2.8" transition="square_up" />
+        <sprite id="trans-EPI_LOGO-a-down" time="4" ressource="EPI_LOGO" do="transition" property="a" from="255" to="0" length="1.5" transition="linear_up" />
+        
+        <sprite id="display-RTYPE_LOGO" time="5" ressource="RTYPE_LOGO" do="display" length="18" x="90" y="155" a="0"/>
+        <sprite id="trans-RTYPE_LOGO=a" time="5.1" ressource="RTYPE_LOGO" do="transition" length="3" property="a" from="1" to="255" transition="sinus_up" />
+        <sprite id="trans-RTYPE_LOGO=sx" time="5.1" ressource="RTYPE_LOGO" do="transition" length="3" property="sx" from="3" to="1" transition="sinus_up" />
+        <sprite id="trans-RTYPE_LOGO=sy" time="5.1" ressource="RTYPE_LOGO" do="transition" length="3" property="sy" from="3" to="1" transition="sinus_up" />
+        <sprite id="trans-RTYPE_LOGO=y" time="8.6" ressource="RTYPE_LOGO" do="transition" length="1" property="y" from="155" to="0" transition="sinus_up" />
+        
+        <menu id="display-MENU" time="8.5" ressource="MAIN" do="display" length="14.5" a="0" />
+        <menu id="trans-MENU-a" time="8.6" ressource="MAIN" do="transition" property="a" from="1" to="255" length="2" />
+        
+        <level time="10" id="INFINITY" ressource="LVL_1" do="infinite" />
+
+        <music time="23" ressource="GRUM" do="stop" />
+  </script>
+</level>
+

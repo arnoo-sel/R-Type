@@ -1,0 +1,21 @@
+<level name="Introduction">
+	<ressources>
+        <map id="MAP_2" file="map1.txt" />
+        <hud id="HUD_2" image="HUD_IMG" />
+        <music id="MUSIC_2" file="level_2.ogg" />
+	</ressources>
+    <script>
+        <hud id="37612wetwetw45" time="0" ressource="HUD_2" do="display" length="20" />
+        <monsters id="monscscsdcsdcers56789045678" time="0" ressource="monsters" do="move" length="20" />
+        <music id="23452346" time="0" ressource="MUSIC_2" do="launch" />
+        <music id="04637374634" time="0" ressource="MUSIC_2" do="volume" volume="0" length="3" />
+        <music id="0afdh6adfh36" time="0" ressource="MUSIC_2" do="transition" property="volume" from="0" to="50" length="2" />
+    	<input id="sdgsdg7oommo088" time="0" ressource="input" do="catch" length="20" />
+    	<ships id="43ahafdghfdag56" time="0" ressource="ships" do="move" length="20" />
+        <network id="234asdgafg30" time="0" ressource="NETWORK" do="receive" length="20" />
+        <map id="9aggfgsdag4" time="0" ressource="MAP_2" do="display" length="20" />
+        <bg time="0" id="3-display-LANDSCAPE" ressource="LANDSCAPE" do="display" length="20" />
+        <bg time="0" id="15fjd;h;asf35663235693" ressource="LANDSCAPE" do="transition" property="a" from="1" to="255" length="1" />
+        <level time="10" id="INFINITY_3" ressource="LVL_3" do="infinite" />
+    </script>
+</level>

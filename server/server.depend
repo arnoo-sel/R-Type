@@ -1,0 +1,279 @@
+# depslib dependency file v1.0
+1263476759 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\bullet.cpp
+	"bullet.hpp"
+	"monsterType.hpp"
+
+1263378936 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\bullet.hpp
+	"entity.hpp"
+	"identifiable.hpp"
+	"game.hpp"
+	"monster.hpp"
+
+1262978962 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\entity.hpp
+	"math/vertex.hpp"
+
+1263313096 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\math\vertex.hpp
+	<iostream>
+	"sockets/iSocket.hpp"
+
+1262984913 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\isocket.hpp
+	"sockets/socketException.hpp"
+	"winsock2.h"
+	"sockets/socketWindows.hpp"
+	<sys/types.h>
+	<sys/socket.h>
+	"sockets/socketUnix.hpp"
+
+1260806828 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketexception.hpp
+	<exception>
+	<string>
+
+1262866899 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketwindows.hpp
+	<windows.h>
+	<iostream>
+	<string>
+	"sockets/iSocket.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketunix.hpp
+	<iostream>
+	<fcntl.h>
+	<unistd.h>
+	"sockets/iSocket.hpp"
+	"netinet/in.h"
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+
+1262703855 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\identifiable.hpp
+
+1263811923 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\game.hpp
+	<string>
+	<list>
+	<math.h>
+	"math/vertex.hpp"
+	"math/time.hpp"
+	"identifiable.hpp"
+	"threads/iThread.hpp"
+	"rocket.hpp"
+
+1263210692 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\math\time.hpp
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\threads\ithread.hpp
+	"threads/threadException.hpp"
+	"threads/threadWindows.hpp"
+	"threads/threadUnix.hpp"
+
+1260188917 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\threads\threadexception.hpp
+	<exception>
+	<string>
+
+1260965988 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\threads\threadwindows.hpp
+	<windows.h>
+	<iostream>
+	"threads/iThread.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\threads\threadunix.hpp
+	<iostream>
+	<fcntl.h>
+	<unistd.h>
+	<pthread.h>
+	<signal.h>
+	"threads/iThread.hpp"
+
+1263216521 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\rocket.hpp
+	"entity.hpp"
+	"identifiable.hpp"
+	"game.hpp"
+	"player.hpp"
+
+1263820633 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\player.hpp
+	<string>
+	"math/vertex.hpp"
+	"math/time.hpp"
+	"sockets/iSocket.hpp"
+	"identifiable.hpp"
+	"entity.hpp"
+
+1263476727 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\monster.hpp
+	<string>
+	"library/iLibrary.hpp"
+	"math/vertex.hpp"
+	"math/time.hpp"
+	"identifiable.hpp"
+	"entity.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\library\ilibrary.hpp
+	<string>
+	"library/libraryException.hpp"
+	"library/libraryWindows.hpp"
+	"library/libraryUnix.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\library\libraryexception.hpp
+	<exception>
+	<string>
+
+1260980704 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\library\librarywindows.hpp
+	<Windows.h>
+	<iostream>
+	"library/iLibrary.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\library\libraryunix.hpp
+	<iostream>
+	<dlfcn.h>
+	"library/iLibrary.hpp"
+
+1262994542 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\entity.cpp
+	"entity.hpp"
+
+1260179828 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\filesystem\fileexception.cpp
+	"filesystem/fileException.hpp"
+	<cstring>
+
+1260179774 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\filesystem\fileexception.hpp
+	<exception>
+	<string>
+
+1262866730 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\filesystem\filewindows.cpp
+	"filesystem/fileWindows.hpp"
+
+1260182074 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\filesystem\filewindows.hpp
+	<Windows.h>
+	<iostream>
+	<algorithm>
+	"filesystem/iFile.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\filesystem\ifile.hpp
+	<string>
+	"filesystem/fileException.hpp"
+	"filesystem/fileWindows.hpp"
+	"filesystem/fileUnix.hpp"
+
+1260182063 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\filesystem\fileunix.hpp
+	<iostream>
+	<fcntl.h>
+	<unistd.h>
+	"filesystem/iFile.hpp"
+
+1262703955 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\identifiable.cpp
+	"identifiable.hpp"
+
+1263476678 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\level.cpp
+	"level.hpp"
+	"monsterType.hpp"
+	"spawn.hpp"
+	<sstream>
+
+1263476659 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\level.hpp
+	<string>
+	<map>
+	<list>
+	"filesystem/iFile.hpp"
+
+1263476992 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\monstertype.hpp
+	<string>
+	<map>
+	"library/iLibrary.hpp"
+	"math/vertex.hpp"
+
+1263389277 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\spawn.hpp
+	<string>
+
+1262866731 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\library\libraryexception.cpp
+	"library/libraryException.hpp"
+	<cstring>
+
+1263218535 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\library\librarywindows.cpp
+	"library/libraryWindows.hpp"
+
+1262866731 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\main.cpp
+	<iostream>
+	"threads/iThread.hpp"
+	"sockets/iSocket.hpp"
+	"library/iLibrary.hpp"
+	"level.hpp"
+	"monster.hpp"
+	"math/vertex.hpp"
+	"game.hpp"
+	"server.hpp"
+	<stdlib.h>
+	<vector>
+
+1263477306 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\server.hpp
+	<list>
+	<iostream>
+	"game.hpp"
+	"player.hpp"
+	"threads/iThread.hpp"
+	"sockets/iSocket.hpp"
+
+1262618066 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\math\vertex.cpp
+	"math/vertex.hpp"
+
+1263477020 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\monster.cpp
+	<iostream>
+	<stdlib.h>
+	"monster.hpp"
+	"spawn.hpp"
+	"monsterType.hpp"
+	"math/time.hpp"
+	"game.hpp"
+	"bullet.hpp"
+
+1263477012 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\monstertype.cpp
+	"monsterType.hpp"
+
+1260806805 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\sockets\socketexception.cpp
+	"sockets/socketException.hpp"
+	<cstring>
+
+1263562650 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\sockets\socketwindows.cpp
+	"sockets/socketWindows.hpp"
+	<stdio.h>
+	<unistd.h>
+
+1263476690 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\spawn.cpp
+	<stdlib.h>
+	"spawn.hpp"
+	"level.hpp"
+	"monsterType.hpp"
+
+1260276597 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\threads\threadexception.cpp
+	"threads/threadException.hpp"
+	<cstring>
+
+1263471814 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\threads\threadwindows.cpp
+	"threads/threadWindows.hpp"
+
+1262866731 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\time.cpp
+	"math/time.hpp"
+	<windows.h>
+	<unistd.h>
+	<time.h>
+	<sys/time.h>
+
+1263563170 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\game.cpp
+	"game.hpp"
+	"monster.hpp"
+	"level.hpp"
+	"spawn.hpp"
+	"monsterType.hpp"
+	"math/time.hpp"
+	"player.hpp"
+	"bullet.hpp"
+	"server.hpp"
+
+1263563446 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\player.cpp
+	"player.hpp"
+	"game.hpp"
+	"monster.hpp"
+	"rocket.hpp"
+	"bullet.hpp"
+
+1263476466 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\rocket.cpp
+	"rocket.hpp"
+
+1263551768 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\src\server.cpp
+	"server.hpp"
+	"time.h"
+	"stdlib.h"
+

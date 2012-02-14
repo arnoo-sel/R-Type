@@ -1,0 +1,40 @@
+# depslib dependency file v1.0
+1263387412 source:c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\monsters\murloc\main.cpp
+	"main.h"
+
+1263312123 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\monsters\murloc\main.h
+	"../../include/math/vertex.hpp"
+	"math.h"
+
+1263313096 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\math\vertex.hpp
+	<iostream>
+	"sockets/iSocket.hpp"
+
+1262984913 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\isocket.hpp
+	"sockets/socketException.hpp"
+	"winsock2.h"
+	"sockets/socketWindows.hpp"
+	<sys/types.h>
+	<sys/socket.h>
+	"sockets/socketUnix.hpp"
+
+1260806828 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketexception.hpp
+	<exception>
+	<string>
+
+1262866899 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketwindows.hpp
+	<windows.h>
+	<iostream>
+	<string>
+	"sockets/iSocket.hpp"
+
+1262866730 c:\documents and settings\iit\mes documents\r-type\rtype-2012-sellie_a\server\include\sockets\socketunix.hpp
+	<iostream>
+	<fcntl.h>
+	<unistd.h>
+	"sockets/iSocket.hpp"
+	"netinet/in.h"
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+

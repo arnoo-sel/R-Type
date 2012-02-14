@@ -1,0 +1,11 @@
+<root>
+    <ressources>
+        <music id="GRUM" file="grum.ogg" />
+        <level id="LVL_1" file="level_1.xml" />
+        <level id="LVL_2" file="level_2.xml" />
+        <image id="BG" file="bg.jpg" />
+        <image id="FG" file="fg.png" />
+        <image id="HUD_IMG" file="hud.png" />
+        <bg id="LANDSCAPE" fg="FG" bg="BG" />
+    </ressources>
+</root>

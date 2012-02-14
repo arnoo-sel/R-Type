@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Win32" />
+	<File name="include\bullet.hpp" open="1" top="0" tabpos="11">
+		<Cursor position="289" topLine="2" />
+	</File>
+	<File name="include\entity.hpp" open="1" top="0" tabpos="12">
+		<Cursor position="415" topLine="0" />
+	</File>
+	<File name="include\game.hpp" open="1" top="0" tabpos="14">
+		<Cursor position="1082" topLine="26" />
+	</File>
+	<File name="include\identifiable.hpp" open="1" top="0" tabpos="13">
+		<Cursor position="159" topLine="0" />
+	</File>
+	<File name="include\level.hpp" open="1" top="0" tabpos="15">
+		<Cursor position="488" topLine="12" />
+	</File>
+	<File name="include\math\vertex.hpp" open="1" top="0" tabpos="17">
+		<Cursor position="284" topLine="9" />
+	</File>
+	<File name="include\monster.hpp" open="1" top="0" tabpos="16">
+		<Cursor position="725" topLine="11" />
+	</File>
+	<File name="include\monsterType.hpp" open="1" top="0" tabpos="1">
+		<Cursor position="536" topLine="3" />
+	</File>
+	<File name="include\player.hpp" open="1" top="0" tabpos="10">
+		<Cursor position="1273" topLine="24" />
+	</File>
+	<File name="include\rocket.hpp" open="1" top="0" tabpos="2">
+		<Cursor position="426" topLine="3" />
+	</File>
+	<File name="include\server.hpp" open="1" top="0" tabpos="3">
+		<Cursor position="599" topLine="10" />
+	</File>
+	<File name="include\spawn.hpp" open="1" top="0" tabpos="4">
+		<Cursor position="259" topLine="0" />
+	</File>
+	<File name="src\bullet.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="391" topLine="0" />
+	</File>
+	<File name="src\game.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="6796" topLine="210" />
+	</File>
+	<File name="src\level.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="2158" topLine="73" />
+	</File>
+	<File name="src\library\libraryWindows.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="585" topLine="0" />
+	</File>
+	<File name="src\main.cpp" open="1" top="0" tabpos="18">
+		<Cursor position="357" topLine="1" />
+	</File>
+	<File name="src\monster.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1373" topLine="38" />
+	</File>
+	<File name="src\monsterType.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1584" topLine="45" />
+	</File>
+	<File name="src\player.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="508" topLine="7" />
+	</File>
+	<File name="src\rocket.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="506" topLine="0" />
+	</File>
+	<File name="src\server.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="1337" topLine="57" />
+	</File>
+	<File name="src\sockets\socketException.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src\sockets\socketWindows.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="2932" topLine="90" />
+	</File>
+	<File name="src\spawn.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="301" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

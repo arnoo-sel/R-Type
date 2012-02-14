@@ -1,0 +1,45 @@
+<level name="Introduction">
+	<ressources>
+        <map id="MAP_1" file="map0.txt" />
+        <hud id="HUD_1" image="HUD_IMG" />
+        <music id="MUSIC_1" file="level_1.ogg" />
+        <text id="INSTRUCT_1" text="Welcome on R-Type !" />
+        <text id="INSTRUCT_2" text="Shoot with Space" />
+        <text id="INSTRUCT_3" text="Keep X pressed for more powerful shoot" />
+        <text id="INSTRUCT_4" text="Have Fun !" />
+	</ressources>
+    <script>
+        <hud id="37612461964715345" time="0" ressource="HUD_1" do="display" length="20" />
+        <text id="it1" time="2" ressource="INSTRUCT_1" do="display" length="5" x="42" y="272" a="0" size="15" />
+        <text id="id1" time="2.1" ressource="INSTRUCT_1" do="transition" property="a" length="0.5" from="1" to="255" />
+        <text id="if1" time="5.3" ressource="INSTRUCT_1" do="transition" property="a" length="0.5" from="255" to="0" />
+        
+        <text id="it2" time="3.5" ressource="INSTRUCT_2" do="display" length="5" x="42" y="292" a="0" size="15" />
+        <text id="id2" time="3.6" ressource="INSTRUCT_2" do="transition" property="a" length="0.5" from="1" to="255" />
+        <text id="if2" time="6.8" ressource="INSTRUCT_2" do="transition" property="a" length="0.5" from="255" to="0" />
+        
+        <text id="it3" time="5" ressource="INSTRUCT_3" do="display" length="5" x="42" y="312" a="0" size="15" />
+        <text id="id3" time="5.1" ressource="INSTRUCT_3" do="transition" property="a" length="0.5" from="1" to="255" />
+        <text id="if3" time="8.3" ressource="INSTRUCT_3" do="transition" property="a" length="0.5" from="255" to="0" />
+        
+        <text id="it4" time="6.5" ressource="INSTRUCT_4" do="display" length="5" x="42" y="332" a="0" size="15" />
+        <text id="id4" time="6.6" ressource="INSTRUCT_4" do="transition" property="a" length="0.5" from="1" to="255" />
+        <text id="if4" time="9.8" ressource="INSTRUCT_4" do="transition" property="a" length="0.5" from="255" to="0" />
+    
+        <music id="1649sdf1" time="0" ressource="GRUM" do="volume" volume="20" length="1.1" />
+        <music id="2699sdg5512" time="0" ressource="GRUM" do="transition" property="volume" from="20" to="0" length="1" />
+        <music id="240919515115" time="1.5" ressource="GRUM" do="stop" />
+        <music id="06971551656" time="0" ressource="MUSIC_1" do="launch" />
+        <music id="045436364634" time="0" ressource="MUSIC_1" do="volume" volume="0" length="3" />
+        <music id="063623622336" time="0" ressource="MUSIC_1" do="transition" property="volume" from="0" to="50" length="2" />
+    	<input id="56894357oommo088" time="0" ressource="input" do="catch" length="20" />
+    	<ships id="4343234893291656" time="0" ressource="ships" do="move" length="20" />
+    	<monsters id="monsters56789045678" time="0" ressource="monsters" do="move" length="20" />
+        <network id="23475603630" time="0" ressource="NETWORK" do="receive" length="20" />
+        <map id="93842374681624" time="0" ressource="MAP_1" do="display" length="20" />
+        <bg time="0" id="2-display-LANDSCAPE" ressource="LANDSCAPE" do="display" length="20" />
+        <bg time="0" id="1535663235693" ressource="LANDSCAPE" do="transition" property="a" from="1" to="255" length="1" />
+        <level time="10" id="INFINITY_2" ressource="LVL_2" do="infinite" />
+    </script>
+</level>
+

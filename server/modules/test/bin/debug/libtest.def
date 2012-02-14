@@ -1,0 +1,4 @@
+EXPORTS
+    _Z7DllMainP11HINSTANCE__mPv@12 @1
+    _get_output_format @2
+    testFunction @3

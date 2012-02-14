@@ -1,0 +1,7 @@
+<area shape="rect" id="node1" href="$class_ressource.html" title="Ressource" alt="" coords="7,131,89,159">
+<area shape="rect" id="node3" href="$class_r_back_ground.html" title="RBackGround" alt="" coords="140,5,241,33">
+<area shape="rect" id="node5" href="$class_r_image.html" title="RImage" alt="" coords="159,55,223,83">
+<area shape="rect" id="node7" href="$class_r_level.html" title="RLevel" alt="" coords="161,106,220,134">
+<area shape="rect" id="node9" href="$class_r_music.html" title="RMusic" alt="" coords="159,157,223,185">
+<area shape="rect" id="node11" href="$class_r_sprite.html" title="Un sprite. Permet d&#39;afficher une image." alt="" coords="159,207,223,235">
+<area shape="rect" id="node13" href="$class_r_text.html" title="RText" alt="" coords="163,258,219,286">

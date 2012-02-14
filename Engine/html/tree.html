@@ -1,0 +1,144 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Language" content="en" />
+    <link rel="stylesheet" href="doxygen.css">
+    <title>TreeView</title>
+    <script type="text/javascript">
+    <!-- // Hide script from old browsers
+    
+    function toggleFolder(id, imageNode) 
+    {
+      var folder = document.getElementById(id);
+      var l = imageNode.src.length;
+      if (imageNode.src.substring(l-20,l)=="ftv2folderclosed.png" || 
+          imageNode.src.substring(l-18,l)=="ftv2folderopen.png")
+      {
+        imageNode = imageNode.previousSibling;
+        l = imageNode.src.length;
+      }
+      if (folder == null) 
+      {
+      } 
+      else if (folder.style.display == "block") 
+      {
+        if (imageNode != null) 
+        {
+          imageNode.nextSibling.src = "ftv2folderclosed.png";
+          if (imageNode.src.substring(l-13,l) == "ftv2mnode.png")
+          {
+            imageNode.src = "ftv2pnode.png";
+          }
+          else if (imageNode.src.substring(l-17,l) == "ftv2mlastnode.png")
+          {
+            imageNode.src = "ftv2plastnode.png";
+          }
+        }
+        folder.style.display = "none";
+      } 
+      else 
+      {
+        if (imageNode != null) 
+        {
+          imageNode.nextSibling.src = "ftv2folderopen.png";
+          if (imageNode.src.substring(l-13,l) == "ftv2pnode.png")
+          {
+            imageNode.src = "ftv2mnode.png";
+          }
+          else if (imageNode.src.substring(l-17,l) == "ftv2plastnode.png")
+          {
+            imageNode.src = "ftv2mlastnode.png";
+          }
+        }
+        folder.style.display = "block";
+      }
+    }
+
+    // End script hiding -->        
+    </script>
+  </head>
+
+  <body class="ftvtree">
+    <div class="directory">
+      <h3 class="swap"><span>R-Type</span></h3>
+      <div style="display: block;">
+        <p><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder4', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder4', this)"/><a class="el" href="annotated.html" target="basefrm">Class List</a></p>
+        <div id="folder4">
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_application.html" target="basefrm">Application</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_load_ressource_exception.html" target="basefrm">LoadRessourceException</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_back_ground.html" target="basefrm">RBackGround</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_ressource.html" target="basefrm">Ressource</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_ressource_factory.html" target="basefrm">RessourceFactory</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_image.html" target="basefrm">RImage</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_level.html" target="basefrm">RLevel</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_music.html" target="basefrm">RMusic</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_sprite.html" target="basefrm">RSprite</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_text.html" target="basefrm">RText</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_singleton.html" target="basefrm">Singleton&lt; T &gt;</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_window.html" target="basefrm">Window</a></p>
+        </div>
+        <p><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder5', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder5', this)"/><a class="el" href="hierarchy.html" target="basefrm">Class Hierarchy</a></p>
+        <div id="folder5">
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_load_ressource_exception.html" target="basefrm">LoadRessourceException</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder6', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder6', this)"/><a class="el" href="class_ressource.html" target="basefrm">Ressource</a></p>
+          <div id="folder6">
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_back_ground.html" target="basefrm">RBackGround</a></p>
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_image.html" target="basefrm">RImage</a></p>
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_level.html" target="basefrm">RLevel</a></p>
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_music.html" target="basefrm">RMusic</a></p>
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_sprite.html" target="basefrm">RSprite</a></p>
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_r_text.html" target="basefrm">RText</a></p>
+          </div>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_ressource_factory.html" target="basefrm">RessourceFactory</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_singleton.html" target="basefrm">Singleton&lt; T &gt;</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder7', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder7', this)"/><a class="el" href="class_singleton.html" target="basefrm">Singleton&lt; Application &gt;</a></p>
+          <div id="folder7">
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_application.html" target="basefrm">Application</a></p>
+          </div>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2plastnode.png" alt="\" width=16 height=22 onclick="toggleFolder('folder8', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder8', this)"/><a class="el" href="class_singleton.html" target="basefrm">Singleton&lt; Window &gt;</a></p>
+          <div id="folder8">
+            <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2blank.png" alt="&nbsp;" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="class_window.html" target="basefrm">Window</a></p>
+          </div>
+        </div>
+        <p><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="functions.html" target="basefrm">Class Members</a></p>
+        <p><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="inherits.html" target="basefrm">Graphical Class Hierarchy</a></p>
+        <p><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder9', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder9', this)"/><a class="el" href="namespaces.html" target="basefrm">Namespace List</a></p>
+        <div id="folder9">
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="namespace_transition.html" target="basefrm">Transition</a></p>
+        </div>
+        <p><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="namespacemembers.html" target="basefrm">Namespace Members</a></p>
+        <p><img src="ftv2pnode.png" alt="o" width=16 height=22 onclick="toggleFolder('folder10', this)"/><img src="ftv2folderclosed.png" alt="+" width=24 height=22 onclick="toggleFolder('folder10', this)"/><a class="el" href="files.html" target="basefrm">File List</a></p>
+        <div id="folder10">
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="application_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/application.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="application_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/application.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="loadressourceexception_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/loadressourceexception.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="loadressourceexception_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/loadressourceexception.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="main_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/main.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="main_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/main.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rbackground_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rbackground.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rbackground_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rbackground.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="ressource_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/ressource.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="ressource_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/ressource.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="ressourcefactory_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/ressourcefactory.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="ressourcefactory_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/ressourcefactory.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rimage_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rimage.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rimage_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rimage.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rlevel_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rlevel.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rlevel_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rlevel.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rmusic_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rmusic.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rmusic_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rmusic.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rsprite_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rsprite.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rsprite_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rsprite.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rtext_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rtext.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="rtext_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/rtext.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="singleton_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/singleton.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="transition_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/transition.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="transition_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/transition.hpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2node.png" alt="o" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="window_8cpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/window.cpp</a></p>
+          <p><img src="ftv2vertline.png" alt="|" width=16 height=22 /><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="window_8hpp.html" target="basefrm">G:/MyDocs/Ecole/R-TypeGIT/rtype-2012-sellie_a/Engine/window.hpp</a></p>
+        </div>
+        <p><img src="ftv2lastnode.png" alt="\" width=16 height=22 /><img src="ftv2doc.png" alt="*" width=24 height=22 /><a class="el" href="globals.html" target="basefrm">File Members</a></p>
+      </div>
+    </div>
+

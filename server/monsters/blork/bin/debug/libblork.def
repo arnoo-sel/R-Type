@@ -1,0 +1,8 @@
+EXPORTS
+    _ZN6VertexIiEC1Eii @1
+    _get_output_format @2
+    canon @3
+    fire @4
+    getFireRate @5
+    getHp @6
+    move @7

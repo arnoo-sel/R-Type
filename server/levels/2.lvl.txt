@@ -1,0 +1,4 @@
+143
+murloc	5
+blork 	50
+boss2	1

@@ -1,0 +1,9 @@
+EXPORTS
+    _ZN6VertexIiEC1Eii @1
+    canon @2
+    fire @3
+    getFireRate @4
+    getHp @5
+    getType @6
+    move @7
+    spawnPos @8

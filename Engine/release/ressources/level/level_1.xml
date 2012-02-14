@@ -1,0 +1,15 @@
+<level name="Introduction">
+	<ressources>
+        <wait id="WAIT" network="NETWORK" />
+	</ressources>
+    <script>
+        <music id="164923651" time="0" ressource="GRUM" do="volume" volume="100" length="3.1" />
+        <music id="269914555512" time="0" ressource="GRUM" do="transition" property="volume" from="100" to="25" length="3" />
+        <network id="2352622623" time="0" ressource="NETWORK" do="receive" length="20" />
+        <wait id="14096373904" time="0" ressource="WAIT" do="wait" length="15" />
+        <bg time="0" id="29769652154821" ressource="LANDSCAPE" do="display" length="15" a="0" />
+        <bg time="0" id="76523079235693" ressource="LANDSCAPE" do="transition" property="a" from="255" to="0" length="3" />
+        <level time="10" id="INFINITY_1" ressource="LVL_1" do="infinite" />
+  </script>
+</level>
+

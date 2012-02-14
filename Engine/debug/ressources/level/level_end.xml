@@ -1,0 +1,170 @@
+<level name="Introduction">
+	<ressources>
+        <music id="END_MUSIC" file="end.ogg" />
+        <music id="CONGRATS" file="congratulations.ogg" />
+        
+        <image id="END_EPITECH" file="epitech.png" />
+        <image id="END_RTYPE" file="r-type.png" />
+        <image id="END_SHIP_IMG" file="shipr.png" />
+        <image id="END_SHIPB_IMG" file="shipb.png" />
+        <image id="END_SHIPY_IMG" file="shipy.png" />
+        <image id="END_SHIPG_IMG" file="shipg_reverse.png" />
+        <image id="END_SFML" file="sfml.png" />
+        <image id="END_QT" file="qt.png" />
+        
+        <sprite id="END_EPI_LOGO" image="END_EPITECH" />
+        <sprite id="END_RTYPE_LOGO" image="END_RTYPE" />
+        <sprite id="END_SHIP" image="END_SHIP_IMG" />
+        <sprite id="END_SHIPB" image="END_SHIPB_IMG" />
+        <sprite id="END_SHIPY" image="END_SHIPY_IMG" />
+        <sprite id="END_SHIPG" image="END_SHIPG_IMG" />
+        <sprite id="END_SFML_LOGO" image="END_SFML" />
+        <sprite id="END_QT_LOGO" image="END_QT" />
+        
+        <text id="END_FEATURING" text="Featuring (in order of appearance)" />
+        <text id="PLAYER_1" text="Player 1 as Player 1" />
+        <text id="PLAYER_2" text="Player 2 as Player 2" />
+        <text id="PLAYER_3" text="Player 3 as Player 3" />
+        <text id="PLAYER_4" text="Player 4 as Player 4" />
+        <text id="END_POWERED_BY" text="Powered by" />
+        <text id="cedell_p" text="Phillipe Cédelle" />
+        <text id="de-la-_o" text="Jocelyn de la Rosa" />
+        <text id="jartho_d" text="Adrien Jarthon" />
+        <text id="moore_a" text="Alexandre Moore" />
+        <text id="sellie_a" text="Arnaud Sellier" />
+        <text id="END_PRESENT" text="Present" />
+        <text id="END_AN" text="an" />
+        <text id="END_BDX" text="BORDEAUX" />
+        <text id="END_3RD" text="3rd   Y E A R   P R O J E C T" />
+        <text id="END_JOKE" text="No ship was harmed during the making of this game" />
+        <text id="END_LOGINS" text="©2009-2010 - cedell_p / de-la-_o / jartho_d / moore_a / sellie_a" />
+	</ressources>
+    <script>
+       <music id="end-music-launch" time="0" ressource="END_MUSIC" do="launch" volume="0" />
+       <music id="end-music-volume" time="0.05" ressource="END_MUSIC" do="volume" volume="0" length="5" />
+       <music id="end-music-cresendo" time="0.1" ressource="END_MUSIC" do="transition" property="volume" from="1" to="75" length="4" transition="square_up" />
+       <music id="veryend-music-volume" time="61.9" ressource="END_MUSIC" do="volume" volume="75" length="3" />
+       <music id="veryend-music-cresendo" time="62" ressource="END_MUSIC" do="transition" property="volume" from="75" to="0" length="2.5" />
+       <music id="end-music-stop" time="65" ressource="END_MUSIC" do="stop" />
+       
+       <music id="end-congrats-volume" time="64" ressource="CONGRATS" do="volume" volume="50" />
+       <music id="end-congrats-launch" time="64" ressource="CONGRATS" do="launch" />
+       <music id="end-congrats-stop" time="66.25" ressource="CONGRATS" do="stop" />
+       
+       <sprite id="end-ship-display" time="4" ressource="END_SHIP" do="display" length="10" x="-100" y="270" />
+       <sprite id="end-ship-appears" time="4.5" ressource="END_SHIP" do="transition" property="x" from="-100" to="300" length="4" transition="sinus_up" />
+       <sprite id="end-ship-backward" time="8.5" ressource="END_SHIP" do="transition" property="x" from="300" to="240" length="2" transition="sinus_up" />
+       
+       
+       <sprite id="end-ship-disappears-x" time="10.5" ressource="END_SHIP" do="transition" property="x" from="600" to="240" length="4" transition="sinus_down" />
+       <sprite id="end-ship-disappears-y" time="10.5" ressource="END_SHIP" do="transition" property="y" from="270" to="30" length="4" transition="square_up" />
+       <sprite id="end-ship-disappears-a" time="10.5" ressource="END_SHIP" do="transition" property="a" from="255" to="0" length="4" transition="square_up" />
+       <sprite id="end-ship-disappears-sx" time="10.5" ressource="END_SHIP" do="transition" property="sx" from="1" to="0" length="4" transition="square_up" />
+       <sprite id="end-ship-disappears-sy" time="10.5" ressource="END_SHIP" do="transition" property="sy" from="1" to="0" length="4" transition="square_up" />
+       
+       
+       <text id="end-powered-by-display" time="15.1" ressource="END_POWERED_BY" do="display" length="10" x="64" y="96" a="0" />
+       <text id="end-powered-by-appears" time="15.2" ressource="END_POWERED_BY" do="transition" property="a" from="1" to="255" length="1" />
+       <text id="end-powered-by-disappears" time="20.2" ressource="END_POWERED_BY" do="transition" property="a" from="255" to="1" length="1" />
+       
+       <sprite id="end-sfml-logo-display" time="15.7" ressource="END_SFML_LOGO" do="display" x="55" y="80" sx="0.5" sy="0.5" a="0" length="3" />
+       <sprite id="end-sfml-logo-appears" time="16.2" ressource="END_SFML_LOGO" do="transition" property="a" from="1" to="255" length="0.5" />
+       <sprite id="end-sfml-logo-disappears" time="17.7" ressource="END_SFML_LOGO" do="transition" property="a" from="255" to="1" length="0.5" />
+       
+       <sprite id="end-qt-logo-display" time="18.2" ressource="END_QT_LOGO" do="display" x="220" y="128" a="0" length="3" />
+       <sprite id="end-qt-logo-appears" time="18.7" ressource="END_QT_LOGO" do="transition" property="a" from="1" to="255" length="0.5" />
+       <sprite id="end-qt-logo-disappears" time="20.2" ressource="END_QT_LOGO" do="transition" property="a" from="255" to="1" length="0.5" />
+       
+       <text id="cedell_p-display" time="22" ressource="cedell_p" do="display" x="30" y="96" size="20" a="0" length="7" />
+       <text id="de-la-_o-display" time="22" ressource="de-la-_o" do="display" x="100" y="164" size="20" a="0" length="7" />
+       <text id="jartho_d-display" time="22" ressource="jartho_d" do="display" x="250" y="96" size="20" a="0" length="7" />
+       <text id="moore_a-display" time="22" ressource="moore_a" do="display" x="360" y="164" size="20" a="0" length="7" />
+       <text id="sellie_a-display" time="22" ressource="sellie_a" do="display" x="470" y="96" size="20" a="0" length="7" />
+       
+       <text id="cedell_p-appears" time="22.1" ressource="cedell_p" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="de-la-_o-appears" time="22.4" ressource="de-la-_o" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="jartho_d-appears" time="22.7" ressource="jartho_d" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="moore_a-appears" time="23.0" ressource="moore_a" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="sellie_a-appears" time="23.3" ressource="sellie_a" do="transition" property="a" from="1" to="255" length="0.5" />
+       
+       <text id="cedell_p-disappears" time="28" ressource="cedell_p" do="transition" property="a" from="255" to="0" length="0.5" />
+       <text id="de-la-_o-disappears" time="28" ressource="de-la-_o" do="transition" property="a" from="255" to="0" length="0.5" />
+       <text id="jartho_d-disappears" time="28" ressource="jartho_d" do="transition" property="a" from="255" to="0" length="0.5" />
+       <text id="moore_a-disappears" time="28" ressource="moore_a" do="transition" property="a" from="255" to="0" length="0.5" />
+       <text id="sellie_a-disappears" time="28" ressource="sellie_a" do="transition" property="a" from="255" to="0" length="0.5" />
+       
+       <text id="end-present-display" time="24.5" ressource="END_PRESENT" do="display" x="280" y="240" a="0" length="5" />
+       <text id="end-present-appears" time="24.6" ressource="END_PRESENT" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="end-present-disappears" time="28" ressource="END_PRESENT" do="transition" property="a" from="255" to="0" length="1.4" />
+       
+       <text id="end-an-display" time="29.9" ressource="END_AN" do="display" x="310" y="64" a="0" length="9.7" />
+       <text id="end-an-appears" time="30" ressource="END_AN" do="transition" property="a" from="1" to="255" length="0.5" />
+       
+       <text id="end-bdx-display" time="33.6" ressource="END_BDX" do="display" x="365" y="190" a="0" size="42" length="6" />
+       <text id="end-bdx-appears" time="33.7" ressource="END_BDX" do="transition" property="a" from="1" to="255" length="2" />
+       
+       <sprite id="end-epi-logo-display" time="30.4" ressource="END_EPI_LOGO" do="display" x="26" y="100" a="0" sx="3" sy="3" length="9.2" />
+       <sprite id="end-epi-logo-appears-a" time="30.5" ressource="END_EPI_LOGO" do="transition" property="a" from="1" to="255" length="3" transition="square_up" />
+       <sprite id="end-epi-logo-appears-sx" time="30.5" ressource="END_EPI_LOGO" do="transition" property="sx" from="3" to="0.5" length="3" />
+       <sprite id="end-epi-logo-appears-sy" time="30.5" ressource="END_EPI_LOGO" do="transition" property="sy" from="3" to="0.5" length="3" />
+       <sprite id="end-epi-logo-appears-x" time="30.5" ressource="END_EPI_LOGO" do="transition" property="x" from="26" to="-100" length="3" transition="square_up" />
+       
+       <text id="end-3rd-display" time="34" ressource="END_3RD" do="display" x="96" y="320" a="0" size="36" length="5.6" />
+       <text id="end-3rd-appears" time="34.1" ressource="END_3RD" do="transition" property="a" from="1" to="255" length="1" />
+       
+       <sprite id="end-shipb-display" time="35.5" ressource="END_SHIPB" do="display" x="-150" y="64" length="4.5" />
+       <sprite id="end-shipb-appears" time="36.5" ressource="END_SHIPB" do="transition" property="x" from="-70" to="650" length="3" transition="square_up" />
+       <text id="end-an-disappears" time="36.5" ressource="END_AN" do="transition" property="a" from="255" to="0" length="3" transition="square_up" />
+       
+       <sprite id="end-shipy-display" time="35.5" ressource="END_SHIPY" do="display" x="-150" y="325" length="4.5" />
+       <sprite id="end-shipy-appears" time="36.5" ressource="END_SHIPY" do="transition" property="x" from="-70" to="650" length="3" transition="square_up" />
+       <text id="end-3rd-disappears" time="36.5" ressource="END_3RD" do="transition" property="a" from="255" to="0" length="3" transition="square_up" />
+       
+       <sprite id="end-shipg-display" time="35.5" ressource="END_SHIPG" do="display" x="730" y="200" length="4.5" />
+       <sprite id="end-shipg-appears" time="36.5" ressource="END_SHIPG" do="transition" property="x" from="700" to="-80" length="3" transition="square_up" />
+       <text id="end-bdx-disappears" time="36.5" ressource="END_BDX" do="transition" property="a" from="255" to="0" length="3" transition="square_up" />
+       <sprite id="end-epi-logo-disappears-a" time="36.5" ressource="END_EPI_LOGO" do="transition" property="a" from="255" to="0" length="3" transition="square_up" />
+       
+       <sprite id="end-display-RTYPE_LOGO" time="41" ressource="END_RTYPE_LOGO" do="display" length="18" x="90" y="155" a="0"/>
+       <sprite id="end-trans-RTYPE_LOGO=a" time="41.1" ressource="END_RTYPE_LOGO" do="transition" length="3" property="a" from="1" to="255" transition="sinus_up" />
+       <sprite id="end-trans-RTYPE_LOGO=sx" time="41.1" ressource="END_RTYPE_LOGO" do="transition" length="3" property="sx" from="3" to="1" transition="sinus_up" />
+       <sprite id="end-trans-RTYPE_LOGO=sy" time="41.1" ressource="END_RTYPE_LOGO" do="transition" length="3" property="sy" from="3" to="1" transition="sinus_up" />
+       <sprite id="end-trans-RTYPE_LOGO=a-down" time="49" ressource="END_RTYPE_LOGO" do="transition" length="3" property="a" from="255" to="0" transition="sinus_up" />
+       
+       <text id="end-logins-display" time="42" ressource="END_LOGINS" do="display" x="32" y="400" a="0" length="17" />
+       <text id="end-logins-appears" time="42.5" ressource="END_LOGINS" do="transition" property="a" from="1" to="255" length="2" />
+       <text id="end-logins-disappears" time="49" ressource="END_LOGINS" do="transition" property="a" from="255" to="0" length="2" />
+       
+       <text id="end-joke-display" time="61" ressource="END_JOKE" do="display" size="17" x="115" y="440" a="0" length="8" />
+       <text id="end-joke-appears" time="61.5" ressource="END_JOKE" do="transition" property="a" from="1" to="255" length="2" />
+       
+       <text id="end-featuring-display" time="52.1" ressource="END_FEATURING" do="display" length="10" x="64" y="96" a="0" />
+       <text id="end-featuring-appears" time="52.2" ressource="END_FEATURING" do="transition" property="a" from="1" to="255" length="1" />
+       <text id="end-featuring-disappears" time="57.2" ressource="END_FEATURING" do="transition" property="a" from="255" to="1" length="1" />
+       
+       <text id="player-1-display" time="53" ressource="PLAYER_1" do="display" x="200" y="150" length="6" a="0" />
+       <text id="player-2-display" time="53" ressource="PLAYER_2" do="display" x="200" y="190" length="6" a="0" />
+       <text id="player-3-display" time="53" ressource="PLAYER_3" do="display" x="200" y="230" length="6" a="0" />
+       <text id="player-4-display" time="53" ressource="PLAYER_4" do="display" x="200" y="270" length="6" a="0" />
+       
+       <text id="player-1-appears" time="53.5" ressource="PLAYER_1" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="player-2-appears" time="53.8" ressource="PLAYER_2" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="player-3-appears" time="54.1" ressource="PLAYER_3" do="transition" property="a" from="1" to="255" length="0.5" />
+       <text id="player-4-appears" time="54.4" ressource="PLAYER_4" do="transition" property="a" from="1" to="255" length="0.5" />
+       
+       <text id="player-1-disappears" time="57.5" ressource="PLAYER_1" do="transition" property="a" from="255" to="1" length="0.5" />
+       <text id="player-2-disappears" time="57.8" ressource="PLAYER_2" do="transition" property="a" from="255" to="1" length="0.5" />
+       <text id="player-3-disappears" time="58.1" ressource="PLAYER_3" do="transition" property="a" from="255" to="1" length="0.5" />
+       <text id="player-4-disappears" time="58.4" ressource="PLAYER_4" do="transition" property="a" from="255" to="1" length="0.5" />
+
+       
+       <bg id="end-bg-display" time="0" ressource="LANDSCAPE" do="display" length="69" a="0" />
+       <bg id="end-bg-appears-1" time="0" ressource="LANDSCAPE" do="transition" property="a" from="0" to="0" length="0.1" />
+       <bg id="end-bg-appears" time="2" ressource="LANDSCAPE" do="transition" property="a" from="1" to="255" length="4" transition="square_up" />
+       <bg id="end-bg-disappears" time="11" ressource="LANDSCAPE" do="transition" property="a" from="255" to="32" length="4" transition="sinus_up" />
+       <bg id="end-bg-reappears" time="40.1" ressource="LANDSCAPE" do="transition" property="a" from="35" to="255" length="0.8" />
+       <bg id="end-bg-redisappears" time="50" ressource="LANDSCAPE" do="transition" property="a" from="255" to="32" length="4" transition="sinus_up" />
+       <bg id="end-bg-reredisappears" time="59" ressource="LANDSCAPE" do="transition" property="a" from="32" to="0" length="1.5" transition="sinus_up" />
+  </script>
+</level>
+

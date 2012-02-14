@@ -1,0 +1,13 @@
+<level name="Introduction">
+	<ressources>
+        <map id="MAP_1" file="map1.txt" />
+        <hud id="HUD_1" image="HUD_IMG" />
+	</ressources>
+    <script>
+        <map id="93842374681624" time="0" ressource="MAP_1" do="display" length="20" />
+        <hud id="37612461964715345" time="0" ressource="HUD_1" do="display" length="20" />
+        <bg time="0" id="2-display-LANDSCAPE" ressource="LANDSCAPE" do="display" length="20" a="255"/>
+        <level time="10" id="INFINITY" ressource="LVL_2" do="infinite" />
+    </script>
+</level>
+
