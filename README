@@ -1,0 +1,15 @@
+R-Type - Projet de 3ème année Epitech.
+Remake multijoueur (client/serveur) du jeu R-Type.
+Technos coté client: C++/SFML/Qt
+Technos coté serveur: C++
+
+--
+
+Le moteur coté client (./Engine) est basé sur un systeme de ressources.
+Une ressource peut-être un vaissaux (./Engine/rships.hpp), un niveau(rlevel.hpp), une music(rmusic.hpp), un menu (rmenu), ... etc.
+Chaque ressource est créée par la RessourceFactory (ressourcefactory.hpp) qui renvoie un Ressource* (vive le polymorphisme).
+
+La liste des ressources à charger, ainsi que leurs utilisations au cours du temps pour chaque niveau sont définies dans des fichiers xml (./Engine/debug/ressources/level/level_2.xml par exemple). Seul le fichier ressource de base (./Engine/debug/ressources/ressources.xml) est chargé en dur par l'app. Il contient des ressources utilisées en permanance, et defini tous les niveaux du jeu.
+
+Le chargement/parsing des xml à lieu dans ./Engine/application.cpp. J'ai un peu honte du gros #define, je l'avoue.
+Les différentes actions sur les ressources sont executées dynamiquement grâce à des pointeurs sur méthode.
