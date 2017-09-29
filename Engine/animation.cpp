@@ -4,12 +4,12 @@ Animation::Animation() : _ospr(_spr)
 {
 }
 
-Animation::Animation(sf::Image& img, sf::Sprite& spr, ANIMATION anim, bool repeat, int mod_x, int mod_y) : _ospr(spr)
+Animation::Animation(sf::Texture& img, sf::Sprite& spr, ANIMATION anim, bool repeat, int mod_x, int mod_y) : _ospr(spr)
 {
     _img = img;
-    _spr.SetImage(img);
+    _spr.setTexture(img);
     _anim = anim;
-    _pos = _spr.GetPosition();
+    _pos = _spr.getPosition();
     _isSpriteExist = true;
     _repeat = repeat;
     _cycle = 0;
@@ -19,11 +19,11 @@ Animation::Animation(sf::Image& img, sf::Sprite& spr, ANIMATION anim, bool repea
     setAnimationList(anim);
 }
 
-Animation::Animation(sf::Image& img, sf::Vector2f pos, ANIMATION anim, bool repeat, int mod_x, int mod_y) : _ospr(_spr)
+Animation::Animation(sf::Texture& img, sf::Vector2f pos, ANIMATION anim, bool repeat, int mod_x, int mod_y) : _ospr(_spr)
 {
     _isSpriteExist = false;
     _img = img;
-    _spr.SetImage(_img);
+    _spr.setTexture(_img);
     _anim = anim;
     _pos = pos;
     _repeat = repeat;
@@ -34,12 +34,12 @@ Animation::Animation(sf::Image& img, sf::Vector2f pos, ANIMATION anim, bool repe
     setAnimationList(anim);
 }
 
-void Animation::init(sf::Image& img, sf::Sprite& spr, ANIMATION anim, bool repeat, int mod_x, int mod_y)
+void Animation::init(sf::Texture& img, sf::Sprite& spr, ANIMATION anim, bool repeat, int mod_x, int mod_y)
 {
     _img = img;
-    _spr.SetImage(img);
+    _spr.setTexture(img);
     _anim = anim;
-    _pos = _spr.GetPosition();
+    _pos = _spr.getPosition();
     _isSpriteExist = true;
     _repeat = repeat;
     _cycle = 0;
@@ -120,7 +120,7 @@ void Animation::setAnimationList(ANIMATION anim)
         }
     default : break;
     }
-    _spr.SetSubRect(NONE);
+    _spr.setTextureRect(NONE);
 }
 
 bool Animation::play()
@@ -128,16 +128,16 @@ bool Animation::play()
     if (_play == true)
     {
         if (_isSpriteExist == true)
-            _pos = _ospr.GetPosition();
-        _spr.SetPosition(_pos.x + _mod.x, _pos.y + _mod.y);
+            _pos = _ospr.getPosition();
+        _spr.setPosition(_pos.x + _mod.x, _pos.y + _mod.y);
         if (_pos.x == 0 && _pos.y == 0)
             return true;
-        if (_clock.GetElapsedTime() > _time)
+        if (_clock.getElapsedTime().asSeconds() > _time)
         {
-            _clock.Reset();
+            _clock.restart();
             if (_cycle < _animList.size())
             {
-                _spr.SetSubRect(_animList[_cycle]);
+                _spr.setTextureRect(_animList[_cycle]);
                 _cycle++;
                 return true;
             }
@@ -145,7 +145,7 @@ bool Animation::play()
                 _cycle = 0;
             else
             {
-                _spr.SetSubRect(NONE);
+                _spr.setTextureRect(NONE);
                 _play = false;
                 return false;
             }
@@ -165,20 +165,20 @@ void Animation::pause()
     {
         _cycle = 0;
     }
-    _spr.SetSubRect(NONE);
+    _spr.setTextureRect(NONE);
     _play = false;
 }
 
 void Animation::start()
 {
     _play = true;
-    _clock.Reset();
+    _clock.restart();
 }
 
 void Animation::playOnce()
 {
     _play = true;
-    _clock.Reset();
+    _clock.restart();
     _cycle = 0;
 }
 

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -30,27 +30,42 @@
 ////////////////////////////////////////////////////////////
 #include <SFML/Config.hpp>
 
+// Windows' HWND is a typedef on struct HWND__*
+#if defined(SFML_SYSTEM_WINDOWS)
+    struct HWND__;
+#endif
 
 namespace sf
 {
-////////////////////////////////////////////////////////////
-/// Define a low-level window handle type, specific to
-/// each platform
-////////////////////////////////////////////////////////////
 #if defined(SFML_SYSTEM_WINDOWS)
 
-    // Windows defines a void* handle (HWND)
-    typedef void* WindowHandle;
+    // Window handle is HWND (HWND__*) on Windows
+    typedef HWND__* WindowHandle;
 
 #elif defined(SFML_SYSTEM_LINUX) || defined(SFML_SYSTEM_FREEBSD)
 
-    // Unix - X11 defines an unsigned integer handle (Window)
+    // Window handle is Window (unsigned long) on Unix - X11
     typedef unsigned long WindowHandle;
 
 #elif defined(SFML_SYSTEM_MACOS)
 
-    // Mac OS X defines a void* handle (NSWindow)
-	typedef void* WindowHandle;
+    // Window handle is NSWindow or NSView (void*) on Mac OS X - Cocoa
+    typedef void* WindowHandle;
+
+#elif defined(SFML_SYSTEM_IOS)
+
+    // Window handle is UIWindow (void*) on iOS - UIKit
+    typedef void* WindowHandle;
+
+#elif defined(SFML_SYSTEM_ANDROID)
+
+    // Window handle is ANativeWindow* (void*) on Android
+    typedef void* WindowHandle;
+
+#elif defined(SFML_DOXYGEN)
+
+    // Define typedef symbol so that Doxygen can attach some documentation to it
+    typedef "platform–specific" WindowHandle;
 
 #endif
 
@@ -58,3 +73,29 @@ namespace sf
 
 
 #endif // SFML_WINDOWHANDLE_HPP
+
+////////////////////////////////////////////////////////////
+/// \typedef sf::WindowHandle
+/// \ingroup window
+///
+/// Define a low-level window handle type, specific to
+/// each platform.
+///
+/// Platform        | Type
+/// ----------------|------------------------------------------------------------
+/// Windows         | \p HWND
+/// Linux/FreeBSD   | \p %Window
+/// Mac OS X        | either \p NSWindow* or \p NSView*, disguised as \p void*
+/// iOS             | \p UIWindow*
+/// Android         | \p ANativeWindow*
+///
+/// \par Mac OS X Specification
+///
+/// On Mac OS X, a sf::Window can be created either from an
+/// existing \p NSWindow* or an \p NSView*. When the window
+/// is created from a window, SFML will use its content view
+/// as the OpenGL area. sf::Window::getSystemHandle() will
+/// return the handle that was used to create the window,
+/// which is a \p NSWindow* by default.
+///
+////////////////////////////////////////////////////////////

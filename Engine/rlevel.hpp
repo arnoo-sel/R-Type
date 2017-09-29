@@ -8,13 +8,13 @@
 class RLevel : public Ressource
 {
 public:
-	typedef bool (RLevel::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RLevel::*action)(QMap<QString, QString>&);
 
 	RLevel(QString name, QString filename);
 	const QString &getFilename() const;
 	static QMap<QString, action> actions;
 protected:
-	bool do_infinite(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_infinite(QMap<QString, QString>& properties);
 	void initActions();
 
 	QString _filename;	

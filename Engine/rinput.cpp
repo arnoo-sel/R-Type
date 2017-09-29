@@ -18,7 +18,7 @@ RInput::RInput(QString name) :
         isCharging = false;
 }
 
-bool RInput::do_catch(QMap<QString, QString>& properties, const sf::Input& input)
+bool RInput::do_catch(QMap<QString, QString>& properties)
 {
     RNetwork &network = RNetwork::instance();
     InputManager &im = InputManager::instance();
@@ -26,24 +26,24 @@ bool RInput::do_catch(QMap<QString, QString>& properties, const sf::Input& input
     sX = speedX;
     sY = speedY;
 
-    if (input.IsKeyDown(im.getKey(InputManager::MOVE_DOWN)))
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_DOWN)))
         speedY = 1;
-    if (input.IsKeyDown(im.getKey(InputManager::MOVE_UP)))
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_UP)))
         speedY = -1;
-    if (((input.IsKeyDown(im.getKey(InputManager::MOVE_UP))) &&
-         (input.IsKeyDown(im.getKey(InputManager::MOVE_DOWN)))) ||
-        (!(input.IsKeyDown(im.getKey(InputManager::MOVE_UP))) &&
-         !(input.IsKeyDown(im.getKey(InputManager::MOVE_DOWN)))))
+    if (((sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_UP))) &&
+         (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_DOWN)))) ||
+        (!(sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_UP))) &&
+         !(sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_DOWN)))))
         speedY = 0;
 
-    if (input.IsKeyDown(im.getKey(InputManager::MOVE_LEFT)))
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_LEFT)))
         speedX = -1;
-    if (input.IsKeyDown(im.getKey(InputManager::MOVE_RIGHT)))
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_RIGHT)))
         speedX = 1;
-    if (((input.IsKeyDown(im.getKey(InputManager::MOVE_RIGHT))) &&
-         (input.IsKeyDown(im.getKey(InputManager::MOVE_LEFT)))) ||
-        (!(input.IsKeyDown(im.getKey(InputManager::MOVE_RIGHT))) &&
-         !(input.IsKeyDown(im.getKey(InputManager::MOVE_LEFT)))))
+    if (((sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_RIGHT))) &&
+         (sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_LEFT)))) ||
+        (!(sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_RIGHT))) &&
+         !(sf::Keyboard::isKeyPressed(im.getKey(InputManager::MOVE_LEFT)))))
         speedX = 0;
     if (first)
         network.send("W");
@@ -56,21 +56,21 @@ bool RInput::do_catch(QMap<QString, QString>& properties, const sf::Input& input
 
     float currentTime = Application::instance().getTheTime();
 
-    if (input.IsKeyDown(im.getKey(InputManager::USE_WEAPON_1)) && currentTime - _canFire > 0.2)
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::USE_WEAPON_1)) && currentTime - _canFire > 0.2)
     {
         _canFire = currentTime;
         network.send("\x10");
     }
-    else if (!input.IsKeyDown(im.getKey(InputManager::USE_WEAPON_1)))
+    else if (!sf::Keyboard::isKeyPressed(im.getKey(InputManager::USE_WEAPON_1)))
         _canFire = 0;
 
-    if (input.IsKeyDown(im.getKey(InputManager::USE_WEAPON_2)) && !isCharging)
+    if (sf::Keyboard::isKeyPressed(im.getKey(InputManager::USE_WEAPON_2)) && !isCharging)
     {
         isCharging = true;
         network.send("\x04");
     }
 
-    if (!input.IsKeyDown(im.getKey(InputManager::USE_WEAPON_2)) && isCharging)
+    if (!sf::Keyboard::isKeyPressed(im.getKey(InputManager::USE_WEAPON_2)) && isCharging)
     {
         isCharging = false;
         network.send("\x10");

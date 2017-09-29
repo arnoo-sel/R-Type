@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,337 +28,99 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Matrix3.hpp>
+#include <SFML/Graphics/Export.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
 
 
 namespace sf
 {
-class RenderQueue;
 class RenderTarget;
 
 ////////////////////////////////////////////////////////////
-/// Enumerate the blending modes for drawable objects
+/// \brief Abstract base class for objects that can be drawn
+///        to a render target
+///
 ////////////////////////////////////////////////////////////
-namespace Blend
+class SFML_GRAPHICS_API Drawable
 {
-    enum Mode
-    {
-        Alpha,    ///< Pixel = Src * a + Dest * (1 - a)
-        Add,      ///< Pixel = Src + Dest
-        Multiply, ///< Pixel = Src * Dest
-        None      ///< No blending
-    };
-}
-
-////////////////////////////////////////////////////////////
-/// Abstract base class for every object that can be drawn
-/// into a render window
-////////////////////////////////////////////////////////////
-class SFML_API Drawable
-{
-public :
+public:
 
     ////////////////////////////////////////////////////////////
-    /// Default constructor
-    ///
-    /// \param position : Position of the object
-    /// \param scale :    Scale factor
-    /// \param rotation : Orientation, in degrees
-    /// \param color :    Color of the object
+    /// \brief Virtual destructor
     ///
     ////////////////////////////////////////////////////////////
-    Drawable(const Vector2f& position = Vector2f(0, 0), const Vector2f& scale = Vector2f(1, 1), float rotation = 0.f, const Color& color = Color(255, 255, 255));
+    virtual ~Drawable() {}
 
-    ////////////////////////////////////////////////////////////
-    /// Virtual destructor
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual ~Drawable();
-
-    ////////////////////////////////////////////////////////////
-    /// Set the position of the object (take 2 values)
-    ///
-    /// \param x : New X coordinate
-    /// \param y : New Y coordinate
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetPosition(float x, float y);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the position of the object (take a 2D vector)
-    ///
-    /// \param position : New position
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetPosition(const Vector2f& position);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the X position of the object
-    ///
-    /// \param x : New X coordinate
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetX(float x);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the Y position of the object
-    ///
-    /// \param y : New Y coordinate
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetY(float y);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the scale of the object (take 2 values)
-    ///
-    /// \param factorX : New horizontal scale (must be strictly positive)
-    /// \param factorY : New vertical scale (must be strictly positive)
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetScale(float factorX, float factorY);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the scale of the object (take a 2D vector)
-    ///
-    /// \param Scale : New scale (both values must be strictly positive)
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetScale(const Vector2f& scale);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the X scale factor of the object
-    ///
-    /// \param factor : New X scale factor
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetScaleX(float factor);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the Y scale factor of the object
-    ///
-    /// \param factor : New Y scale factor
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetScaleY(float factor);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the local origin of the object, in coordinates relative to the
-    /// top-left of the object (take 2 values).
-    /// The default origin is (0, 0)
-    ///
-    /// \param x : X coordinate of the origin
-    /// \param y : Y coordinate of the origin
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetOrigin(float x, float y);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the local origin of the object, in coordinates relative to the
-    /// top-left of the object (take a 2D vector).
-    /// The default origin is (0, 0)
-    ///
-    /// \param origin : New origin
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetOrigin(const Vector2f& origin);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the orientation of the object
-    ///
-    /// \param angle : Angle of rotation, in degrees
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetRotation(float angle);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the color of the object.
-    /// The default color is white
-    ///
-    /// \param color : New color
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetColor(const Color& color);
-
-    ////////////////////////////////////////////////////////////
-    /// Set the blending mode for the object.
-    /// The default blend mode is Blend::Alpha
-    ///
-    /// \param mode : New blending mode
-    ///
-    ////////////////////////////////////////////////////////////
-    void SetBlendMode(Blend::Mode mode);
-
-    ////////////////////////////////////////////////////////////
-    /// Get the position of the object
-    ///
-    /// \return Current position
-    ///
-    ////////////////////////////////////////////////////////////
-    const Vector2f& GetPosition() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the current scale of the object
-    ///
-    /// \return Current scale factor (always positive)
-    ///
-    ////////////////////////////////////////////////////////////
-    const Vector2f& GetScale() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the local origin of the object
-    ///
-    /// \return Current position of the origin
-    ///
-    ////////////////////////////////////////////////////////////
-    const Vector2f& GetOrigin() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the orientation of the object.
-    /// Rotation is always in the range [0, 360]
-    ///
-    /// \return Current rotation, in degrees
-    ///
-    ////////////////////////////////////////////////////////////
-    float GetRotation() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the color of the object
-    ///
-    /// \return Current color
-    ///
-    ////////////////////////////////////////////////////////////
-    const Color& GetColor() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the current blending mode
-    ///
-    /// \return Current blending mode
-    ///
-    ////////////////////////////////////////////////////////////
-    Blend::Mode GetBlendMode() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Move the object of a given offset (take 2 values)
-    ///
-    /// \param offsetX : X offset
-    /// \param offsetY : Y offset
-    ///
-    ////////////////////////////////////////////////////////////
-    void Move(float offsetX, float offsetY);
-
-    ////////////////////////////////////////////////////////////
-    /// Move the object of a given offset (take a 2D vector)
-    ///
-    /// \param offset : Amount of units to move the object of
-    ///
-    ////////////////////////////////////////////////////////////
-    void Move(const Vector2f& offset);
-
-    ////////////////////////////////////////////////////////////
-    /// Scale the object (take 2 values)
-    ///
-    /// \param factorX : Scaling factor on X (must be strictly positive)
-    /// \param factorY : Scaling factor on Y (must be strictly positive)
-    ///
-    ////////////////////////////////////////////////////////////
-    void Scale(float factorX, float factorY);
-
-    ////////////////////////////////////////////////////////////
-    /// Scale the object (take a 2D vector)
-    ///
-    /// \param factor : Scaling factors (both values must be strictly positive)
-    ///
-    ////////////////////////////////////////////////////////////
-    void Scale(const Vector2f& factor);
-
-    ////////////////////////////////////////////////////////////
-    /// Rotate the object
-    ///
-    /// \param Angle : Angle of rotation, in degrees
-    ///
-    ////////////////////////////////////////////////////////////
-    void Rotate(float Angle);
-
-    ////////////////////////////////////////////////////////////
-    /// Transform a point from global coordinates into local coordinates
-    /// (ie it applies the inverse of object's origin, translation, rotation and scale to the point)
-    ///
-    /// \param point : Point to transform
-    ///
-    /// \return Transformed point
-    ///
-    ////////////////////////////////////////////////////////////
-    sf::Vector2f TransformToLocal(const sf::Vector2f& point) const;
-
-    ////////////////////////////////////////////////////////////
-    /// Transform a point from local coordinates into global coordinates
-    /// (ie it applies the object's origin, translation, rotation and scale to the point)
-    ///
-    /// \param point : Point to transform
-    ///
-    /// \return Transformed point
-    ///
-    ////////////////////////////////////////////////////////////
-    sf::Vector2f TransformToGlobal(const sf::Vector2f& point) const;
-
-protected :
-
-    ////////////////////////////////////////////////////////////
-    /// Get the transform matrix of the drawable
-    ///
-    /// \return Transform matrix
-    ///
-    ////////////////////////////////////////////////////////////
-    const Matrix3& GetMatrix() const;
-
-    ////////////////////////////////////////////////////////////
-    /// Get the inverse transform matrix of the drawable
-    ///
-    /// \return Inverse transform matrix
-    ///
-    ////////////////////////////////////////////////////////////
-    const Matrix3& GetInverseMatrix() const;
-
-private :
+protected:
 
     friend class RenderTarget;
 
     ////////////////////////////////////////////////////////////
-    /// Draw the object into the specified render target
+    /// \brief Draw the object to a render target
     ///
-    /// \param target : Target into which render the object
-    /// \param queue :  Render queue to add the rendering commands to
+    /// This is a pure virtual function that has to be implemented
+    /// by the derived class to define how the drawable should be
+    /// drawn.
     ///
-    ////////////////////////////////////////////////////////////
-    void Draw(RenderTarget& target, RenderQueue& queue) const;
-
-    ////////////////////////////////////////////////////////////
-    /// Render the specific geometry of the object
-    ///
-    /// \param target : Target into which render the object
-    /// \param queue :  Render queue to add the rendering commands to
+    /// \param target Render target to draw to
+    /// \param states Current render states
     ///
     ////////////////////////////////////////////////////////////
-    virtual void Render(RenderTarget& target, RenderQueue& queue) const = 0;
-
-    ////////////////////////////////////////////////////////////
-    // Member data
-    ////////////////////////////////////////////////////////////
-    Vector2f        myPosition;      ///< Position of the object on screen
-    Vector2f        myScale;         ///< Scale of the object
-    Vector2f        myOrigin;        ///< Origin of translation / rotation / scaling of the object
-    float           myRotation;      ///< Orientation of the object, in degrees
-    Color           myColor;         ///< Overlay color of the object
-    Blend::Mode     myBlendMode;     ///< Blending mode
-    mutable bool    myNeedUpdate;    ///< Do we need to recompute the transform matrix ?
-    mutable bool    myInvNeedUpdate; ///< Do we need to recompute the inverse transform matrix ?
-    mutable Matrix3 myMatrix;        ///< Precomputed transform matrix gathering the translation / rotation / scale / center
-    mutable Matrix3 myInvMatrix;     ///< Precomputed inverse transform matrix gathering the translation / rotation / scale / center
+    virtual void draw(RenderTarget& target, RenderStates states) const = 0;
 };
 
 } // namespace sf
 
 
 #endif // SFML_DRAWABLE_HPP
+
+
+////////////////////////////////////////////////////////////
+/// \class sf::Drawable
+/// \ingroup graphics
+///
+/// sf::Drawable is a very simple base class that allows objects
+/// of derived classes to be drawn to a sf::RenderTarget.
+///
+/// All you have to do in your derived class is to override the
+/// draw virtual function.
+///
+/// Note that inheriting from sf::Drawable is not mandatory,
+/// but it allows this nice syntax "window.draw(object)" rather
+/// than "object.draw(window)", which is more consistent with other
+/// SFML classes.
+///
+/// Example:
+/// \code
+/// class MyDrawable : public sf::Drawable
+/// {
+/// public:
+///
+///    ...
+///
+/// private:
+///
+///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     {
+///         // You can draw other high-level objects
+///         target.draw(m_sprite, states);
+///
+///         // ... or use the low-level API
+///         states.texture = &m_texture;
+///         target.draw(m_vertices, states);
+///
+///         // ... or draw with OpenGL directly
+///         glBegin(GL_QUADS);
+///         ...
+///         glEnd();
+///     }
+///
+///     sf::Sprite m_sprite;
+///     sf::Texture m_texture;
+///     sf::VertexArray m_vertices;
+/// };
+/// \endcode
+///
+/// \see sf::RenderTarget
+///
+////////////////////////////////////////////////////////////

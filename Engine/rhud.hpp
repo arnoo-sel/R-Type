@@ -9,13 +9,13 @@
 class RHud : public Ressource
 {
 public:
-	typedef bool (RHud::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RHud::*action)(QMap<QString, QString>&);
 
 	RHud(QString name, RImage *rImage);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
 
 	void initActions();
 
@@ -24,7 +24,7 @@ protected:
 	sf::Sprite _sprite;
 	bool first;
 	sf::Text _levelName, _pts, life;
-	QMap<int, sf::Image> _shipsImg;
+    QMap<int, sf::Texture> _shipsImg;
 	QMap<int, sf::Sprite> _shipsSpr;
 
 	sf::Sprite _KOBG;

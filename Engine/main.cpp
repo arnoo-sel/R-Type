@@ -3,6 +3,7 @@
 #include "loadressourceexception.hpp"
 #include "window.hpp"
 #include "rnetwork.hpp"
+#include "fonts.h"
 
 #include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
@@ -10,9 +11,10 @@
 int main()
 {
         Window &window = Window::instance();
-		window.ShowMouseCursor(false);
-        window.Clear(sf::Color(0, 0, 0));
-        window.Display();
+        window.setMouseCursorVisible(false);
+        window.clear(sf::Color(0, 0, 0));
+        window.display();
+        Fonts::initialize();
 
         Application &app = Application::instance();
         try

@@ -11,53 +11,53 @@ RMusic::RMusic(QString filename, QString name) :
 {
 	_filename = filename;
 	initActions();
-	OpenFromFile(("ressources/music/" + _filename).toStdString());
-	SetLoop(true);
+    openFromFile(("ressources/music/" + _filename).toStdString());
+    setLoop(true);
 	_properties["volume"] = "100";
 }
 
-bool RMusic::do_launch(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMusic::do_launch(QMap<QString, QString> &properties)
 {
-	if (GetStatus() != Playing)
+    if (getStatus() != Playing)
 	{
 		std::cout << "PLAY MUSIC: " << properties["ressource"].toStdString() << std::endl;
-		Play();
+        play();
 	}
 	else
 	{
-		Stop();
-		Play();
+        stop();
+        play();
 	}
 	return true;
 }
 
-bool RMusic::do_stop(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMusic::do_stop(QMap<QString, QString> &properties)
 {
-	if (GetStatus() != Stopped)
+    if (getStatus() != Stopped)
 	{
 		std::cout << "STOP MUSIC: " << properties["ressource"].toStdString() << std::endl;
-		Stop();
+        stop();
 	}
 	return true;
 }
 
-bool RMusic::do_pause(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMusic::do_pause(QMap<QString, QString> &properties)
 {
-	if (GetStatus() == Playing)
+    if (getStatus() == Playing)
 	{
 		std::cout << "PAUSE MUSIC: " << properties["ressource"].toStdString() << std::endl;
-		Pause();
+        pause();
 	}
 	return true;
 }
 
-bool RMusic::do_volume(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMusic::do_volume(QMap<QString, QString> &properties)
 {
-	SetVolume(_properties["volume"].toFloat());
+    setVolume(_properties["volume"].toFloat());
 	return true;
 }
 
-bool RMusic::do_transition(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMusic::do_transition(QMap<QString, QString> &properties)
 {
 	float time = times[properties["id"]];
 	float time_ratio = time / properties["length"].toFloat();

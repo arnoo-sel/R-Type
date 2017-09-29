@@ -8,7 +8,7 @@
 class RMenu : public Ressource
 {
 public:
-	typedef bool (RMenu::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RMenu::*action)(QMap<QString, QString>&);
 	struct menuElem
 	{
 		QList<menuElem> subElems;
@@ -20,12 +20,12 @@ public:
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_transition(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
+    bool do_transition(QMap<QString, QString>& properties);
 	void initActions();
 
-	static void aff_menu(QList<menuElem>, int i = 0);
-	static void createSFMLText(QList<menuElem>& menu);
+    void aff_menu(QList<menuElem>, int i = 0);
+    void createSFMLText(QList<menuElem>& menu);
 
 
 	QMap<QString, QString> _properties;

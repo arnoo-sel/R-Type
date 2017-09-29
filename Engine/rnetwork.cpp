@@ -25,7 +25,7 @@ RNetwork::RNetwork() :
     cmds[0x16] = &RNetwork::cmd_changeLevelMessage;
     cmds[0x17] = &RNetwork::cmd_gameOver;
     initActions();
-    timers["NETWORK"].Reset();
+    timers["NETWORK"].restart();
     gameStarted = false;
     _levelChanged = false;
     score = 0;
@@ -36,15 +36,15 @@ RNetwork::RNetwork() :
 void RNetwork::init(const std::string _host, unsigned short _port, RShips* _ships, RMonsters* _monsters)
 {
     unsigned short p = 2469;
-    sf::IPAddress address(_host);
-    if (!address.IsValid())
-        throw "Invalid adress!";
-    else
-        std::cout << "Host okay" << std::endl;
-    if (!socket.Bind(p))
+//    sf::IpAddress address(_host);
+//    if (!address.sValid())
+//        throw "Invalid adress!";
+//    else
+//        std::cout << "Host okay" << std::endl;
+    if (socket.bind(p) != sf::Socket::Done)
         throw "Bind Error!";
 
-    socket.SetBlocking(false);
+    socket.setBlocking(false);
     host = _host;
     port = _port;
     monsters = _monsters;
@@ -53,12 +53,12 @@ void RNetwork::init(const std::string _host, unsigned short _port, RShips* _ship
     playerId = -1;
 }
 
-bool RNetwork::do_receive(QMap<QString, QString>& properties, const sf::Input& input)
+bool RNetwork::do_receive(QMap<QString, QString>& properties)
 {
 	// Envoi regulierement un signe de vie au serveur.
 	static float _lifeSign = 0;
-	Application &app = Application::instance();
-	float currentTime = timers["NETWORK"].GetElapsedTime();
+    //Application &app = Application::instance();
+    float currentTime = timers["NETWORK"].getElapsedTime().asSeconds();
 	if (currentTime - _lifeSign > 0.5)
 	{
 		_lifeSign = currentTime;
@@ -67,13 +67,14 @@ bool RNetwork::do_receive(QMap<QString, QString>& properties, const sf::Input& i
 
     char buf[BUFFER_SIZE];
     std::size_t received;
-    sf::IPAddress sender;
+    sf::IpAddress sender;
     sf::Socket::Status st;
     unsigned short p = 2469;
-    while ((st = socket.Receive(buf, BUFFER_SIZE, received, sender, p)) == sf::Socket::Done)
+    while ((st = socket.receive(buf, BUFFER_SIZE, received, sender, p)) == sf::Socket::Done)
     {
         std::string dataReceived(buf, received);
         char cmd = Formater::unpack<char>(dataReceived);
+        std::cout << "RECEIVED: " << (int)cmd << "\n";
         if (cmds.contains(cmd))
         {
             (this->*cmds[cmd])(dataReceived);
@@ -98,7 +99,7 @@ bool& RNetwork::levelChanged()
 void RNetwork::send(const std::string data)
 {
 //    std::cout << "Send : " << data << std::endl;
-    if (socket.Send(data.c_str() , data.size() , host, port) != sf::Socket::Done);
+    if (socket.send(data.c_str() , data.size() , host, port) != sf::Socket::Done);
 		//throw "Socket Error: impossible to send data";
 }
 
@@ -244,7 +245,7 @@ void RNetwork::initActions()
 
 RNetwork::~RNetwork()
 {
-    socket.Close();
+    socket.unbind();
 }
 
 bool RNetwork::isReferee() const

@@ -96,8 +96,8 @@ private:
 	  **/
 	QMap<QString, QMap<QString, Ressource*> >   ressources;
 	bool levelIsInfinite;
-	float theTime;
-        float theLag;
+    float theTime;
+    float theLag;
 	bool _continue;
 	bool _restartLevel;
 	bool weWantToQuit;

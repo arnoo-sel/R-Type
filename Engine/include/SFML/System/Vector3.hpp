@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -36,10 +36,12 @@ namespace sf
 template <typename T>
 class Vector3
 {
-public :
+public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
+    ///
+    /// Creates a Vector3(0, 0, 0).
     ///
     ////////////////////////////////////////////////////////////
     Vector3();
@@ -55,6 +57,20 @@ public :
     Vector3(T X, T Y, T Z);
 
     ////////////////////////////////////////////////////////////
+    /// \brief Construct the vector from another type of vector
+    ///
+    /// This constructor doesn't replace the copy constructor,
+    /// it's called only when U != T.
+    /// A call to this constructor will fail to compile if U
+    /// is not convertible to T.
+    ///
+    /// \param vector Vector to convert
+    ///
+    ////////////////////////////////////////////////////////////
+    template <typename U>
+    explicit Vector3(const Vector3<U>& vector);
+
+    ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
     T x; ///< X coordinate of the vector
@@ -63,9 +79,10 @@ public :
 };
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of unary operator -
 ///
-/// \param right Vector to negate
+/// \param left Vector to negate
 ///
 /// \return Memberwise opposite of the vector
 ///
@@ -74,6 +91,7 @@ template <typename T>
 Vector3<T> operator -(const Vector3<T>& left);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator +=
 ///
 /// This operator performs a memberwise addition of both vectors,
@@ -89,6 +107,7 @@ template <typename T>
 Vector3<T>& operator +=(Vector3<T>& left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator -=
 ///
 /// This operator performs a memberwise subtraction of both vectors,
@@ -104,6 +123,7 @@ template <typename T>
 Vector3<T>& operator -=(Vector3<T>& left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator +
 ///
 /// \param left  Left operand (a vector)
@@ -116,6 +136,7 @@ template <typename T>
 Vector3<T> operator +(const Vector3<T>& left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator -
 ///
 /// \param left  Left operand (a vector)
@@ -128,6 +149,7 @@ template <typename T>
 Vector3<T> operator -(const Vector3<T>& left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator *
 ///
 /// \param left  Left operand (a vector)
@@ -140,6 +162,7 @@ template <typename T>
 Vector3<T> operator *(const Vector3<T>& left, T right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator *
 ///
 /// \param left  Left operand (a scalar value)
@@ -152,6 +175,7 @@ template <typename T>
 Vector3<T> operator *(T left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator *=
 ///
 /// This operator performs a memberwise multiplication by \a right,
@@ -167,10 +191,11 @@ template <typename T>
 Vector3<T>& operator *=(Vector3<T>& left, T right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator /
 ///
-/// \param left  Left operand (a scalar value)
-/// \param right Right operand (a vector)
+/// \param left  Left operand (a vector)
+/// \param right Right operand (a scalar value)
 ///
 /// \return Memberwise division by \a right
 ///
@@ -179,6 +204,7 @@ template <typename T>
 Vector3<T> operator /(const Vector3<T>& left, T right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator /=
 ///
 /// This operator performs a memberwise division by \a right,
@@ -194,6 +220,7 @@ template <typename T>
 Vector3<T>& operator /=(Vector3<T>& left, T right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator ==
 ///
 /// This operator compares strict equality between two vectors.
@@ -208,6 +235,7 @@ template <typename T>
 bool operator ==(const Vector3<T>& left, const Vector3<T>& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates Vector3
 /// \brief Overload of binary operator !=
 ///
 /// This operator compares strict difference between two vectors.
@@ -235,6 +263,7 @@ typedef Vector3<float> Vector3f;
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Vector3
+/// \ingroup system
 ///
 /// sf::Vector3 is a simple class that defines a mathematical
 /// vector with three coordinates (x, y and z). It can be used to
@@ -246,12 +275,12 @@ typedef Vector3<float> Vector3f;
 /// and comparisons (==, !=), for example int or float.
 ///
 /// You generally don't have to care about the templated form (sf::Vector3<T>),
-/// the two most common specializations have special typedefs:
+/// the most common specializations have special typedefs:
 /// \li sf::Vector3<float> is sf::Vector3f
 /// \li sf::Vector3<int> is sf::Vector3i
 ///
 /// The sf::Vector3 class has a small and simple interface, its x and y members
-/// can be accessed directly (there's no accessor like SetX(), GetX()) and it
+/// can be accessed directly (there are no accessors like setX(), getX()) and it
 /// contains no mathematical function like dot product, cross product, length, etc.
 ///
 /// Usage example:

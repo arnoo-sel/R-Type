@@ -15,7 +15,7 @@ const QString &RLevel::getFilename() const
 	return(_filename);
 }
 
-bool RLevel::do_infinite(QMap<QString, QString> &properties, const sf::Input &input)
+bool RLevel::do_infinite(QMap<QString, QString> &properties)
 {
 	Application &app = Application::instance();
 

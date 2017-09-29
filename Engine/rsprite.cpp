@@ -6,7 +6,7 @@
 QMap<QString, RSprite::action> RSprite::actions;
 
 RSprite::RSprite(QString name, RImage *rImage) :
-		sf::Sprite(*dynamic_cast<sf::Image*>(rImage)),
+        sf::Sprite(rImage->texture()),
 		Ressource::Ressource(name)
 {
 	_image = rImage;
@@ -16,7 +16,7 @@ RSprite::RSprite(QString name, RImage *rImage) :
 
 #define DEFAULT_PROP_VALUE(prop, val) if (!properties.count(prop)) properties[prop] = val
 
-bool RSprite::do_display(QMap<QString, QString>& properties, const sf::Input& input)
+bool RSprite::do_display(QMap<QString, QString>& properties)
 {
 	Window &win = Window::instance();
 
@@ -29,22 +29,21 @@ bool RSprite::do_display(QMap<QString, QString>& properties, const sf::Input& in
 
 	if (first)
 	{
-		SetOrigin(_image->GetWidth() / 2., _image->GetHeight() / 2.);
+        setOrigin(_image->getSize().x / 2., _image->getSize().y / 2.);
 
 		_properties = properties;
 		first = false;
 	}
 
-	SetColor(sf::Color(255,255,255, _properties["a"].toFloat()));
-	SetX(_properties["x"].toFloat() + _image->GetWidth() / 2.);
-	SetY(_properties["y"].toFloat() + _image->GetHeight() / 2.);
-	SetScale(_properties["sx"].toFloat(), _properties["sy"].toFloat());
-	SetRotation(_properties["r"].toFloat());
-	win.Draw(*dynamic_cast<sf::Sprite*>(this));
+    setColor(sf::Color(255,255,255, _properties["a"].toFloat()));
+    setPosition(_properties["x"].toFloat() + _image->getSize().x / 2., _properties["y"].toFloat() + _image->getSize().y / 2.);
+    setScale(_properties["sx"].toFloat(), _properties["sy"].toFloat());
+    setRotation(_properties["r"].toFloat());
+    win.draw(*dynamic_cast<sf::Sprite*>(this));
 	return true;
 }
 
-bool RSprite::do_transition(QMap<QString, QString> &properties, const sf::Input& input)
+bool RSprite::do_transition(QMap<QString, QString> &properties)
 {
 	float time = times[properties["id"]];
 	float time_ratio = time / properties["length"].toFloat();

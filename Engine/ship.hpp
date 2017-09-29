@@ -11,9 +11,9 @@
 #define LIMIT SPEED / 1.1
 
 #define C_BLUE sf::IntRect(0, 0, 64, 26)
-#define C_RED sf::IntRect(0, 30, 64, 57)
-#define C_YELLOW sf::IntRect(0, 61, 64, 88)
-#define C_GREEN sf::IntRect(0, 92, 64, 118)
+#define C_RED sf::IntRect(0, 30, 64, 57 - 30)
+#define C_YELLOW sf::IntRect(0, 61, 64, 88 - 61)
+#define C_GREEN sf::IntRect(0, 92, 64, 118 - 62)
 #define INVIS_TIME 3
 class Ship
 {
@@ -37,7 +37,7 @@ public:
         STALL
     };
 
-    Ship(int id, sf::Image&, Color);
+    Ship(int id, sf::Texture &, Color);
     void moveToCoord();
     void setTrajectory(int, int, float, float, float);
     void resetClock();
@@ -48,7 +48,7 @@ private:
     int _id;
     float spawnTime;
     sf::Sprite _spr;
-    sf::Image _img;
+    sf::Texture _img;
     sf::Clock clock;
     sf::Clock fclock;
     sf::Clock lclock;

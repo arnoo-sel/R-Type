@@ -11,15 +11,15 @@ QMap<QString, RShips::action> RShips::actions;
 RShips::RShips(QString name) : Ressource(name)
 {
     nbShips = 0;
-    shipsImage.LoadFromFile("ressources/image/ships2.png");
-    rocketsImage.LoadFromFile("ressources/image/rockets.png");
+    shipsImage.loadFromFile("ressources/image/ships2.png");
+    rocketsImage.loadFromFile("ressources/image/rockets.png");
     initActions();
-    explosionImage.LoadFromFile("ressources/image/explosions.png");
-    explosion2Image.LoadFromFile("ressources/image/anim_explosion_2.png");
-    animShipImage.LoadFromFile("ressources/image/anim_ship.png");
-	explosionSound.LoadFromFile("ressources/sounds/explosion.wav");
-	hitSound.LoadFromFile("ressources/sounds/hit-02.wav");
-        rocketSound.LoadFromFile("ressources/sounds/laser.wav");
+    explosionImage.loadFromFile("ressources/image/explosions.png");
+    explosion2Image.loadFromFile("ressources/image/anim_explosion_2.png");
+    animShipImage.loadFromFile("ressources/image/anim_ship.png");
+    explosionSound.loadFromFile("ressources/sounds/explosion.wav");
+    hitSound.loadFromFile("ressources/sounds/hit-02.wav");
+    rocketSound.loadFromFile("ressources/sounds/laser.wav");
 }
 
 void RShips::setMonsters(RMonsters *m)
@@ -27,7 +27,7 @@ void RShips::setMonsters(RMonsters *m)
     monsters = m;
 }
 
-bool RShips::do_move(QMap<QString, QString>& properties, const sf::Input& input)
+bool RShips::do_move(QMap<QString, QString>& properties)
 {
     Window& w = Window::instance();
     Application &app = Application::instance();
@@ -39,7 +39,7 @@ bool RShips::do_move(QMap<QString, QString>& properties, const sf::Input& input)
     foreach(Ship* s, ships)
     {
         s->moveToCoord();
-        w.Draw(s->getSprite());
+        w.draw(s->getSprite());
 
         if (ntw.isReferee() && (app.getTimePlusLag() - s->getSpawnTime()) > INVIS_TIME)
         {
@@ -99,7 +99,7 @@ bool RShips::do_move(QMap<QString, QString>& properties, const sf::Input& input)
             }
         }
         r->move();
-        w.Draw(r->getSprite());
+        w.draw(r->getSprite());
     }
 
     if (ntw.levelChanged())
@@ -122,11 +122,11 @@ bool RShips::do_move(QMap<QString, QString>& properties, const sf::Input& input)
             annimations.erase(annimations.begin() + i);
         }
         else
-            w.Draw(annimations[i]->getSprite());
+            w.draw(annimations[i]->getSprite());
     }
 	for (int i = 0; i < sounds.size(); i++)
 	{
-		if (sounds[i]->GetStatus() == sf::Sound::Stopped)
+        if (sounds[i]->getStatus() == sf::Sound::Stopped)
 		{
 			delete sounds[i];
 			sounds.erase(sounds.begin() + i);
@@ -135,7 +135,7 @@ bool RShips::do_move(QMap<QString, QString>& properties, const sf::Input& input)
     foreach (Animation* a, animPrepRocket)
     {
         a->play();
-        w.Draw(a->getSprite());
+        w.draw(a->getSprite());
     }
     return true;
 }
@@ -145,7 +145,7 @@ void RShips::die(int id)
     std::cout << "Player " << id << " : I'm Dyyiiinnnngg!" << std::endl;
     if (ships.contains(id) && ships[id])
     {
-        annimations.push_back(new Animation(explosionImage, ships[id]->getSprite().GetPosition(), Animation::EXPLOSION_BIG, false, 10, 0));
+        annimations.push_back(new Animation(explosionImage, ships[id]->getSprite().getPosition(), Animation::EXPLOSION_BIG, false, 10, 0));
         delete ships[id];
         ships.remove(id);
 
@@ -153,9 +153,9 @@ void RShips::die(int id)
         animPrepRocket.remove(id);
         // Sound
         sf::Sound *sound = new sf::Sound;
-        sound->SetBuffer(explosionSound);
-		sound->SetVolume(50.f);
-		sound->Play();
+        sound->setBuffer(explosionSound);
+        sound->setVolume(50.f);
+        sound->play();
         sounds.push_back(sound);
     }
 }
@@ -177,9 +177,9 @@ void RShips::fire(int id, char color, float time, char size, int pX, int pY, flo
         rockets[id] = r;
 
 		sf::Sound *sound = new sf::Sound;
-		sound->SetBuffer(rocketSound);
-                sound->SetVolume(30.f + size * 10.f);
-		sound->Play();
+        sound->setBuffer(rocketSound);
+        sound->setVolume(30.f + size * 10.f);
+        sound->play();
 		sounds.push_back(sound);
     }
     rockets[id]->setTrajectory(pX, pY, sX, app.getTimePlusLag() - time);
@@ -189,14 +189,14 @@ void RShips::rocketExplode(int id)
 {
     if (rockets.contains(id) && rockets[id])
     {
-		annimations.push_back(new Animation(explosion2Image, rockets[id]->getSprite().GetPosition(), Animation::EXPLOSION_ROCKET, false, 7, 0));
+        annimations.push_back(new Animation(explosion2Image, rockets[id]->getSprite().getPosition(), Animation::EXPLOSION_ROCKET, false, 7, 0));
 
-		if (rockets[id]->getSprite().GetPosition().x < 640)
+        if (rockets[id]->getSprite().getPosition().x < 640)
 		{
 			sf::Sound *sound = new sf::Sound;
-			sound->SetBuffer(hitSound);
-			sound->SetVolume(20.f);
-			sound->Play();
+            sound->setBuffer(hitSound);
+            sound->setVolume(20.f);
+            sound->play();
 			sounds.push_back(sound);
 		}
         delete rockets[id];

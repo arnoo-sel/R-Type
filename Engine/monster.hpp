@@ -8,7 +8,7 @@
 class Monster
 {
 public:
-    Monster(sf::Image&, int, int, int, int, float, float);
+    Monster(sf::Texture &, int, int, int, int, float, float);
     void setTrajectory(float, float, float, float, float);
     void move();
     void resetClock();
@@ -16,7 +16,7 @@ public:
     int getId();
     int getType();
 private:
-    sf::Image _img;
+    sf::Texture _img;
     sf::Sprite _spr;
     sf::Clock _clock;
     sf::Vector2f _pos;

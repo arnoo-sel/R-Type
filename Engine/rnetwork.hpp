@@ -17,11 +17,11 @@
 class RNetwork : public Singleton<RNetwork>, public Ressource
 {
 public:
-	typedef bool (RNetwork::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RNetwork::*action)(QMap<QString, QString>&);
 	friend class Singleton<RNetwork>;
 	RNetwork();
         ~RNetwork();
-	bool do_receive(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_receive(QMap<QString, QString>& properties);
 	void send(std::string data);
         void init(const std::string host, unsigned short port, RShips*, RMonsters*);
 	static QMap<QString, action> actions;
@@ -48,7 +48,7 @@ private:
                 char color;
 	typedef void (RNetwork::*cmd)(std::string& data);
 	Application *app;
-	sf::SocketUDP socket;
+    sf::UdpSocket socket;
 	std::string host;
 	unsigned short port;
 	QMap<char, cmd> cmds;

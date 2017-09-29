@@ -10,8 +10,11 @@ class RImage : public sf::Image, public Ressource
 {
 public:
 	RImage(QString name, QString filename);
+    sf::Texture& texture();
+
 private:
 	QString _filename;
+    sf::Texture _texture;
 };
 
 #endif // RIMAGE_HPP

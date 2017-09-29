@@ -14,17 +14,17 @@ class RMusic : public sf::Music, public Ressource
 {
 public:
 	friend class RHud;
-	typedef bool (RMusic::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RMusic::*action)(QMap<QString, QString>&);
 
 	RMusic(QString filename, QString name);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_launch(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_stop(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_pause(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_volume(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_transition(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_launch(QMap<QString, QString>& properties);
+    bool do_stop(QMap<QString, QString>& properties);
+    bool do_pause(QMap<QString, QString>& properties);
+    bool do_volume(QMap<QString, QString>& properties);
+    bool do_transition(QMap<QString, QString>& properties);
 
 	void initActions();
 	bool _first;

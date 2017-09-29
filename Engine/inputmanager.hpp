@@ -25,14 +25,14 @@ public:
     };
 
     InputManager();
-    void setBindingKey(sf::Key::Code, Action);
-    Action getAction(sf::Key::Code);
-    Action inputToAction(const sf::Input &input);
-    sf::Key::Code getKey(Action action);
+    void setBindingKey(sf::Keyboard::Key, Action);
+    Action getAction(sf::Keyboard::Key);
+    //Action inputToAction(const sf::Input &input);
+    sf::Keyboard::Key getKey(Action action);
 private:
     sf::Clock clock;
-    Action actionKey[sf::Key::Count];
-    sf::Key::Code actionCode[NB_KEY];
+    Action actionKey[sf::Keyboard::KeyCount];
+    sf::Keyboard::Key actionCode[NB_KEY];
 };
 
 #endif // INPUTMANAGER_HPP

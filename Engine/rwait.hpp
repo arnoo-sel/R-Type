@@ -10,18 +10,18 @@
 class RWait : public Ressource
 {
 public:
-	typedef bool (RWait::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RWait::*action)(QMap<QString, QString>&);
 
 	RWait(QString name);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_wait(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_wait(QMap<QString, QString>& properties);
 
 	void initActions();
 
 	sf::Text waitForPlayers, pressStart, you, connectError, help;
-	sf::Image shipsImg;
+    sf::Texture shipsImg;
 	sf::Sprite ships;
 };
 

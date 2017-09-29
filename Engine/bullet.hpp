@@ -9,7 +9,7 @@
 class Bullet
 {
 public:
-    Bullet(sf::Image&, int);
+    Bullet(sf::Texture &, int);
     void setTrajectory(int, int, float, float, float);
     void move();
     sf::Sprite& getSprite();
@@ -17,7 +17,7 @@ public:
     int getId();
 
 private:
-    sf::Image _img;
+    sf::Texture _img;
     sf::Sprite _spr;
     sf::Vector2f _pos;
     sf::Vector2f _move;

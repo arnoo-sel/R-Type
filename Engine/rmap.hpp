@@ -18,7 +18,7 @@
 class RMap : public Ressource
 {
 public:
-	typedef bool (RMap::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RMap::*action)(QMap<QString, QString>&);
 	static QMap<QString, action> actions;
 
 protected:
@@ -27,24 +27,24 @@ protected:
     int blockId;
     void initActions();
     bool first;
-    sf::Image iBottomLeft;
-    sf::Image iTopLeft;
-    sf::Image iMiddle;
-    sf::Image iMiddle1;
-    sf::Image iMiddle2;
-    sf::Image iMiddle3;
-    sf::Image iMiddle4;
-    sf::Image iLeft1;
-    sf::Image imageAlpha;
+    sf::Texture iBottomLeft;
+    sf::Texture iTopLeft;
+    sf::Texture iMiddle;
+    sf::Texture iMiddle1;
+    sf::Texture iMiddle2;
+    sf::Texture iMiddle3;
+    sf::Texture iMiddle4;
+    sf::Texture iLeft1;
+    sf::Texture imageAlpha;
 
-    sf::Image iAlone;
-    sf::Image iTopRight;
-    sf::Image iBottomRight;
-    sf::Image iTop1;
-    sf::Image iBottom1;
-    sf::Image iMiddle6;
-    sf::Image iMiddle5;
-    sf::Image iRight1;
+    sf::Texture iAlone;
+    sf::Texture iTopRight;
+    sf::Texture iBottomRight;
+    sf::Texture iTop1;
+    sf::Texture iBottom1;
+    sf::Texture iMiddle6;
+    sf::Texture iMiddle5;
+    sf::Texture iRight1;
 
 
     void setImage(sf::Sprite &s, int x, int y);
@@ -52,7 +52,7 @@ public:
     sf::Sprite** getSprites() const;
     static bool checkCollision(const sf::Sprite& s1, const sf::Sprite& s2);
     RMap(QString name, const QString& fileName);
-    bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
 };
 
 #endif // RMAP_HPP

@@ -155,7 +155,7 @@ Application::actionsList *Application::loadScript(QString rFile)
 #define REGISTER_ACTIONS(TYPE, TAG) if ((*currentActions.at(i))["type"] == TAG) \
 	ok_to_continue = ((dynamic_cast<TYPE*>(ressources[TAG] \
 	[(*currentActions.at(i))["ressource"]])) \
-	->*(TYPE::actions[(*currentActions.at(i))["do"]]))((*currentActions.at(i)), input);
+    ->*(TYPE::actions[(*currentActions.at(i))["do"]]))((*currentActions.at(i)));
 
 bool Application::launchLevel(actionsList *actions)
 {
@@ -164,22 +164,22 @@ bool Application::launchLevel(actionsList *actions)
 	levelIsInfinite = false;
 	sf::Clock timer;
 	_continue = true;
-	theTime = 0;
-	theLag = 0;
+    theTime = 0;
+    theLag = 0;
 	QList<QMap<QString, QString>* > currentActions;
 
-	window.SetFramerateLimit(60);
+    window.setFramerateLimit(60);
 	COUT << "LAUNCH LEVEL" << ENDL;
-	timer.Reset();
+    timer.restart();
 
 	while (_continue && !weWantToQuit)
 	{
 		//On met a jour tous les timers
-		theTime = timer.GetElapsedTime();
+        theTime = timer.getElapsedTime().asSeconds();
 		for (int i = 0 ; i < currentActions.size() ; ++i)
 		{
 			ressources[(*currentActions.at(i))["type"]][(*currentActions.at(i))["ressource"]]->times[(*currentActions.at(i))["id"]] =
-					ressources[(*currentActions.at(i))["type"]][(*currentActions.at(i))["ressource"]]->timers[(*currentActions.at(i))["id"]].GetElapsedTime();
+                    ressources[(*currentActions.at(i))["type"]][(*currentActions.at(i))["ressource"]]->timers[(*currentActions.at(i))["id"]].getElapsedTime().asSeconds();
 		}
 
 		//On purge la liste des actions en cours
@@ -229,18 +229,16 @@ bool Application::launchLevel(actionsList *actions)
 
 
 		sf::Event event;
-		while (window.GetEvent(event))
+        while (window.pollEvent(event))
 		{
 			// Fenêtre fermée
-			if (event.Type == sf::Event::Closed || (event.Type == sf::Event::KeyPressed && event.Key.Code == sf::Key::Escape))
+            if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
 				weWantToQuit = true;
 
 		}
 
 		//On efface la fenetre
-		window.Clear(sf::Color(0, 0, 0));
-
-		const sf::Input& input = window.GetInput();
+        window.clear(sf::Color(0, 0, 0));
 
 		//On execute les actions
 		bool ok_to_continue = true;
@@ -263,7 +261,7 @@ bool Application::launchLevel(actionsList *actions)
 
 
 		//On re-affiche le conntenu de la fenetre
-		window.Display();
+        window.display();
 		if (!ok_to_continue)
 			_continue = false;
 	}

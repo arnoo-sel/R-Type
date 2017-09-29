@@ -10,13 +10,13 @@
 class RInput : public Ressource
 {
 public:
-    typedef bool (RInput::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RInput::*action)(QMap<QString, QString>&);
 
     RInput(QString name);
 
     static QMap<QString, action> actions;
 protected:
-    bool do_catch(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_catch(QMap<QString, QString>& properties);
     void initActions();
 private:
     float _canFire;

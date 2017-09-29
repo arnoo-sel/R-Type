@@ -1,10 +1,10 @@
 INCLUDEPATH += include
-LIBS = -Llib/ \
-    -lsfml-system-d \
-    -lsfml-graphics-d \
-    -lsfml-window-d \
-    -lsfml-audio-d \
-    -lsfml-network-d
+LIBS = -Llib \
+    -lsfml-system \
+    -lsfml-graphics \
+    -lsfml-window \
+    -lsfml-audio \
+    -lsfml-network
 QT -= gui
 QT += xml
 SOURCES += main.cpp \
@@ -33,7 +33,8 @@ SOURCES += main.cpp \
     monster.cpp \
     rmonsters.cpp \
     bullet.cpp \
-    animation.cpp
+    animation.cpp \
+    fonts.cpp
 HEADERS += main.hpp \
     singleton.hpp \
     application.hpp \
@@ -61,4 +62,5 @@ HEADERS += main.hpp \
     monster.hpp \
     rmonsters.hpp \
     bullet.hpp \
-    animation.hpp
+    animation.hpp \
+    fonts.h

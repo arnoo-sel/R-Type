@@ -5,6 +5,7 @@
 #include "transition.hpp"
 #include "application.hpp"
 #include "rnetwork.hpp"
+#include "fonts.h"
 #include <sstream>
 
 QMap<QString, RMenu::action> RMenu::actions;
@@ -22,8 +23,8 @@ RMenu::RMenu(QString name, QString filename) :
 
 	_elems << d2 << d3;
 
-	RMenu::aff_menu(_elems);
-	RMenu::createSFMLText(_elems);
+    aff_menu(_elems);
+    createSFMLText(_elems);
 
 	_pos << 0;
 	lastMove = 0;
@@ -34,7 +35,7 @@ void RMenu::createSFMLText(QList<menuElem> &menu)
 {
 	for (int j = 0 ; j < menu.size() ; ++j)
 	{
-		menu[j].str = new sf::Text(menu.at(j).text.toStdString());
+        menu[j].str = new sf::Text(menu.at(j).text.toStdString(), Fonts::getGlobalFont("arial"));
 		if (menu.at(j).subElems.size())
 			RMenu::createSFMLText(menu[j].subElems);
 	}
@@ -53,7 +54,7 @@ void RMenu::aff_menu(QList<menuElem> menu, int i)
 
 #define DEFAULT_PROP_VALUE(prop, val) if (!properties.count(prop)) properties[prop] = val
 
-bool RMenu::do_display(QMap<QString, QString>& properties, const sf::Input& input)
+bool RMenu::do_display(QMap<QString, QString>& properties)
 {
 	Window &win = Window::instance();
 	Application &app = Application::instance();
@@ -88,13 +89,13 @@ bool RMenu::do_display(QMap<QString, QString>& properties, const sf::Input& inpu
 	}
 	columns--;
 
-	if (times[properties["id"]] - lastMove > 0.15 && input.IsKeyDown(sf::Key::Down))
+    if (times[properties["id"]] - lastMove > 0.15 && sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 		_pos[columns]++;
 		_pos[columns] %= elemsToDisplay.size();
 		lastMove = times[properties["id"]];
 	}
-	if (times[properties["id"]] - lastMove > 0.15 && input.IsKeyDown(sf::Key::Up))
+    if (times[properties["id"]] - lastMove > 0.15 && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 		_pos[columns]--;
 		if (_pos[columns] < 0)
@@ -108,14 +109,14 @@ bool RMenu::do_display(QMap<QString, QString>& properties, const sf::Input& inpu
 		if (_properties["a"].toFloat() >= 255)
 			_properties["a"] = "255";
 		if (i == _pos[columns])
-			elemsToDisplay[i].str->SetColor(sf::Color(128, 128, 255, _properties["a"].toFloat()));
+            elemsToDisplay[i].str->setColor(sf::Color(128, 128, 255, _properties["a"].toFloat()));
 		else
-			elemsToDisplay[i].str->SetColor(sf::Color(255, 255, 255, _properties["a"].toFloat()));
-		elemsToDisplay[i].str->SetPosition(290, 200 + i * 55);
-		win.Draw(*(elemsToDisplay[i].str));
+            elemsToDisplay[i].str->setColor(sf::Color(255, 255, 255, _properties["a"].toFloat()));
+        elemsToDisplay[i].str->setPosition(290, 200 + i * 55);
+        win.draw(*(elemsToDisplay[i].str));
 	}
 
-	if (times[properties["id"]] - lastMove > 0.2 && input.IsKeyDown(sf::Key::Return))
+    if (times[properties["id"]] - lastMove > 0.2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	{
 		if (elemsToDisplay[_pos.last()].subElems.size())
 			_pos << 0;
@@ -132,14 +133,14 @@ bool RMenu::do_display(QMap<QString, QString>& properties, const sf::Input& inpu
 		lastMove = times[properties["id"]];
 
 	}
-	if (times[properties["id"]] - lastMove > 0.2 && input.IsKeyDown(sf::Key::Back))
+    if (times[properties["id"]] - lastMove > 0.2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
 		if (_pos.size() > 1)
 			_pos.pop_back();
 		lastMove = times[properties["id"]];
 
 	}
-	if (times[properties["id"]] - lastMove > 0.2 && input.IsKeyDown(sf::Key::Escape))
+    if (times[properties["id"]] - lastMove > 0.2 && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		if (_pos.size() > 1)
 			_pos.pop_back();
@@ -151,7 +152,7 @@ bool RMenu::do_display(QMap<QString, QString>& properties, const sf::Input& inpu
 	return true;
 }
 
-bool RMenu::do_transition(QMap<QString, QString> &properties, const sf::Input& input)
+bool RMenu::do_transition(QMap<QString, QString> &properties)
 {
 	float time = times[properties["id"]];
 	float time_ratio = time / properties["length"].toFloat();

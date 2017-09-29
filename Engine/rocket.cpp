@@ -3,40 +3,40 @@
 #include "rmap.hpp"
 #include "application.hpp"
 
-Rocket::Rocket(sf::Image& img, int id, sf::Vector2f pos, int pow)
+Rocket::Rocket(sf::Texture& img, int id, sf::Vector2f pos, int pow)
 {
     _img = img;
-    _spr.SetImage(_img);
+    _spr.setTexture(_img);
     switch (pow)
     {
     case 0 :
         {
-            _spr.SetSubRect(R_POW_0);
+            _spr.setTextureRect(R_POW_0);
             break;
         }
     case 1 :
         {
-            _spr.SetSubRect(R_POW_1);
+            _spr.setTextureRect(R_POW_1);
             break;
         }
     case 2 :
         {
-            _spr.SetSubRect(R_POW_2);
+            _spr.setTextureRect(R_POW_2);
             break;
         }
     case 3 :
         {
-            _spr.SetSubRect(R_POW_3);
+            _spr.setTextureRect(R_POW_3);
             break;
         }
     case 4 :
         {
-            _spr.SetSubRect(R_POW_4);
+            _spr.setTextureRect(R_POW_4);
             break;
         }
     case 5 :
         {
-            _spr.SetSubRect(R_POW_5);
+            _spr.setTextureRect(R_POW_5);
             break;
         }
     default : break;
@@ -45,11 +45,11 @@ Rocket::Rocket(sf::Image& img, int id, sf::Vector2f pos, int pow)
 
 void Rocket::move()
 {
-    float time = clock.GetElapsedTime();
-    _spr.SetPosition(_coord);
-    _spr.Move(_move.x * time, 0);
-    _coord = _spr.GetPosition();
-    clock.Reset();
+    float time = clock.getElapsedTime().asSeconds();
+    _spr.setPosition(_coord);
+    _spr.move(_move.x * time, 0);
+    _coord = _spr.getPosition();
+    clock.restart();
 }
 
 void Rocket::setTrajectory(int pos_x, int pos_y, float speed, float time)

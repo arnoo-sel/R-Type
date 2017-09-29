@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,7 +28,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Config.hpp>
+#include <SFML/Window/Export.hpp>
+#include <SFML/Window/GlResource.hpp>
+#include <SFML/Window/ContextSettings.hpp>
 #include <SFML/System/NonCopyable.hpp>
 
 
@@ -36,16 +38,18 @@ namespace sf
 {
 namespace priv
 {
-    class ContextGL;
+    class GlContext;
 }
+
+typedef void (*GlFunctionPointer)();
 
 ////////////////////////////////////////////////////////////
 /// \brief Class holding a valid drawing context
 ///
 ////////////////////////////////////////////////////////////
-class SFML_API Context : NonCopyable
+class SFML_WINDOW_API Context : GlResource, NonCopyable
 {
-public :
+public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
@@ -58,37 +62,80 @@ public :
     ////////////////////////////////////////////////////////////
     /// \brief Destructor
     ///
-    /// The desctructor deactivates and destroys the context
+    /// The destructor deactivates and destroys the context
     ///
     ////////////////////////////////////////////////////////////
     ~Context();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Activate or deactivate explicitely the context
+    /// \brief Activate or deactivate explicitly the context
     ///
     /// \param active True to activate, false to deactivate
     ///
+    /// \return True on success, false on failure
+    ///
     ////////////////////////////////////////////////////////////
-    void SetActive(bool active);
+    bool setActive(bool active);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Make the current thread's reference context active
+    /// \brief Get the settings of the context
     ///
-    /// This function is meant to be called internally; it is used
-    /// to deactivate the current context by activating another one
-    /// (so that we still have an active context on the current thread).
+    /// Note that these settings may be different than the ones
+    /// passed to the constructor; they are indeed adjusted if the
+    /// original settings are not directly supported by the system.
     ///
-    /// \return True if operation was successful, false otherwise
+    /// \return Structure containing the settings
     ///
     ////////////////////////////////////////////////////////////
-    static bool SetReferenceActive();
+    const ContextSettings& getSettings() const;
 
-private :
+    ////////////////////////////////////////////////////////////
+    /// \brief Check whether a given OpenGL extension is available
+    ///
+    /// \param name Name of the extension to check for
+    ///
+    /// \return True if available, false if unavailable
+    ///
+    ////////////////////////////////////////////////////////////
+    static bool isExtensionAvailable(const char* name);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Get the address of an OpenGL function
+    ///
+    /// \param name Name of the function to get the address of
+    ///
+    /// \return Address of the OpenGL function, 0 on failure
+    ///
+    ////////////////////////////////////////////////////////////
+    static GlFunctionPointer getFunction(const char* name);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Get the currently active context
+    ///
+    /// \return The currently active context or NULL if none is active
+    ///
+    ////////////////////////////////////////////////////////////
+    static const Context* getActiveContext();
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct a in-memory context
+    ///
+    /// This constructor is for internal use, you don't need
+    /// to bother with it.
+    ///
+    /// \param settings Creation parameters
+    /// \param width    Back buffer width
+    /// \param height   Back buffer height
+    ///
+    ////////////////////////////////////////////////////////////
+    Context(const ContextSettings& settings, unsigned int width, unsigned int height);
+
+private:
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::ContextGL* myContext; ///< Internal OpenGL context
+    priv::GlContext* m_context; ///< Internal OpenGL context
 };
 
 } // namespace sf
@@ -98,13 +145,13 @@ private :
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Context
+/// \ingroup window
 ///
-/// If you need to make OpenGL / graphics calls without
-/// having an active window (like in a thread), you can use
-/// an instance of this class to get a valid context.
+/// If you need to make OpenGL calls without having an
+/// active window (like in a thread), you can use an
+/// instance of this class to get a valid context.
 ///
-/// Having a valid context is necessary for *every* OpenGL call,
-/// and for most of the classes from the Graphics package.
+/// Having a valid context is necessary for *every* OpenGL call.
 ///
 /// Note that a context is only active in its current thread,
 /// if you create a new thread it will have no valid context
@@ -118,17 +165,13 @@ private :
 ///
 /// Usage example:
 /// \code
-/// void ThreadFunction(void*)
+/// void threadFunction(void*)
 /// {
 ///    sf::Context context;
 ///    // from now on, you have a valid context
 ///
 ///    // you can make OpenGL calls
 ///    glClear(GL_DEPTH_BUFFER_BIT);
-///
-///    // as well as using objects from the graphics package
-///    sf::Image image;
-///    image.LoadFromFile("image.png");
 /// }
 /// // the context is automatically deactivated and destroyed
 /// // by the sf::Context destructor

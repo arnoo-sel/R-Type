@@ -1,7 +1,0 @@
-EXPORTS
-    canon @1
-    fire @2
-    getFireRate @3
-    getHp @4
-    getType @5
-    move @6

@@ -8,14 +8,14 @@
 class RText : public sf::Text, public Ressource
 {
 public:
-	typedef bool (RText::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RText::*action)(QMap<QString, QString>&);
 
 	RText(QString name, QString text);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_transition(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
+    bool do_transition(QMap<QString, QString>& properties);
 
 	void initActions();
 

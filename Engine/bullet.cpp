@@ -1,19 +1,19 @@
 #include "bullet.hpp"
 
-Bullet::Bullet(sf::Image& img, int id)
+Bullet::Bullet(sf::Texture& img, int id)
 {
     _id = id;
     _img = img;
-    _spr.SetImage(_img);
+    _spr.setTexture(_img);
 }
 
 void Bullet::move()
 {
-    float time = clock.GetElapsedTime();
-    _spr.SetPosition(_coord);
-    _spr.Move(_move.x * time, _move.y * time);
-    _coord = _spr.GetPosition();
-    clock.Reset();
+    float time = clock.getElapsedTime().asSeconds();
+    _spr.setPosition(_coord);
+    _spr.move(_move.x * time, _move.y * time);
+    _coord = _spr.getPosition();
+    clock.restart();
 }
 
 void Bullet::setTrajectory(int pos_x, int pos_y, float speed_x, float speed_y, float time)

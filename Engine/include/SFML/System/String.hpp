@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,7 +28,9 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Config.hpp>
+#include <SFML/System/Export.hpp>
+#include <SFML/System/Utf.hpp>
+#include <iterator>
 #include <locale>
 #include <string>
 
@@ -40,15 +42,20 @@ namespace sf
 ///        conversions between types and encodings
 ///
 ////////////////////////////////////////////////////////////
-class SFML_API String
+class SFML_SYSTEM_API String
 {
-public :
+public:
 
     ////////////////////////////////////////////////////////////
     // Types
     ////////////////////////////////////////////////////////////
     typedef std::basic_string<Uint32>::iterator       Iterator;      ///< Iterator type
-    typedef std::basic_string<Uint32>::const_iterator ConstIterator; ///< Constant iterator type
+    typedef std::basic_string<Uint32>::const_iterator ConstIterator; ///< Read-only iterator type
+
+    ////////////////////////////////////////////////////////////
+    // Static member data
+    ////////////////////////////////////////////////////////////
+    static const std::size_t InvalidPos; ///< Represents an invalid position in the string
 
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
@@ -59,54 +66,56 @@ public :
     String();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct from a null-terminated C-style ANSI string
+    /// \brief Construct from a single ANSI character and a locale
     ///
-    /// The source string is converted to UTF-32 according
-    /// to the current locale. See the other constructor for
-    /// explicitely passing the locale to use.
+    /// The source character is converted to UTF-32 according
+    /// to the given locale.
     ///
-    /// \param ansiString ANSI string to convert
+    /// \param ansiChar ANSI character to convert
+    /// \param locale   Locale to use for conversion
     ///
     ////////////////////////////////////////////////////////////
-    String(const char* ansiString);
+    String(char ansiChar, const std::locale& locale = std::locale());
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct from an ANSI string
+    /// \brief Construct from single wide character
     ///
-    /// The source string is converted to UTF-32 according
-    /// to the current global locale. See the other constructor for
-    /// explicitely passing the locale to use.
-    ///
-    /// \param ansiString ANSI string to convert
+    /// \param wideChar Wide character to convert
     ///
     ////////////////////////////////////////////////////////////
-    String(const std::string& ansiString);
+    String(wchar_t wideChar);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Construct from single UTF-32 character
+    ///
+    /// \param utf32Char UTF-32 character to convert
+    ///
+    ////////////////////////////////////////////////////////////
+    String(Uint32 utf32Char);
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct from a null-terminated C-style ANSI string and a locale
     ///
     /// The source string is converted to UTF-32 according
-    /// to the given locale. If you want to use the current global
-    /// locale, rather use the other constructor.
+    /// to the given locale.
     ///
     /// \param ansiString ANSI string to convert
     /// \param locale     Locale to use for conversion
     ///
     ////////////////////////////////////////////////////////////
-    String(const char* ansiString, const std::locale& locale);
+    String(const char* ansiString, const std::locale& locale = std::locale());
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct from an ANSI string and a locale
     ///
     /// The source string is converted to UTF-32 according
-    /// to the given locale. If you want to use the current global
-    /// locale, rather use the other constructor.
+    /// to the given locale.
     ///
     /// \param ansiString ANSI string to convert
     /// \param locale     Locale to use for conversion
     ///
     ////////////////////////////////////////////////////////////
-    String(const std::string& ansiString, const std::locale& locale);
+    String(const std::string& ansiString, const std::locale& locale = std::locale());
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct from null-terminated C-style wide string
@@ -143,60 +152,94 @@ public :
     ////////////////////////////////////////////////////////////
     /// \brief Copy constructor
     ///
-    /// \param other Instance to copy
+    /// \param copy Instance to copy
     ///
     ////////////////////////////////////////////////////////////
     String(const String& copy);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Implicit cast operator to std::string (ANSI string)
+    /// \brief Create a new sf::String from a UTF-8 encoded string
+    ///
+    /// \param begin Forward iterator to the beginning of the UTF-8 sequence
+    /// \param end   Forward iterator to the end of the UTF-8 sequence
+    ///
+    /// \return A sf::String containing the source string
+    ///
+    /// \see fromUtf16, fromUtf32
+    ///
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+    static String fromUtf8(T begin, T end);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Create a new sf::String from a UTF-16 encoded string
+    ///
+    /// \param begin Forward iterator to the beginning of the UTF-16 sequence
+    /// \param end   Forward iterator to the end of the UTF-16 sequence
+    ///
+    /// \return A sf::String containing the source string
+    ///
+    /// \see fromUtf8, fromUtf32
+    ///
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+    static String fromUtf16(T begin, T end);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Create a new sf::String from a UTF-32 encoded string
+    ///
+    /// This function is provided for consistency, it is equivalent to
+    /// using the constructors that takes a const sf::Uint32* or
+    /// a std::basic_string<sf::Uint32>.
+    ///
+    /// \param begin Forward iterator to the beginning of the UTF-32 sequence
+    /// \param end   Forward iterator to the end of the UTF-32 sequence
+    ///
+    /// \return A sf::String containing the source string
+    ///
+    /// \see fromUtf8, fromUtf16
+    ///
+    ////////////////////////////////////////////////////////////
+    template <typename T>
+    static String fromUtf32(T begin, T end);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Implicit conversion operator to std::string (ANSI string)
     ///
     /// The current global locale is used for conversion. If you
-    /// want to explicitely specify a locale, see ToAnsiString.
+    /// want to explicitly specify a locale, see toAnsiString.
     /// Characters that do not fit in the target encoding are
     /// discarded from the returned string.
     /// This operator is defined for convenience, and is equivalent
-    /// to calling ToAnsiString().
+    /// to calling toAnsiString().
     ///
     /// \return Converted ANSI string
+    ///
+    /// \see toAnsiString, operator std::wstring
     ///
     ////////////////////////////////////////////////////////////
     operator std::string() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Implicit cast operator to std::wstring (wide string)
+    /// \brief Implicit conversion operator to std::wstring (wide string)
     ///
     /// Characters that do not fit in the target encoding are
     /// discarded from the returned string.
     /// This operator is defined for convenience, and is equivalent
-    /// to calling ToWideString().
+    /// to calling toWideString().
     ///
     /// \return Converted wide string
+    ///
+    /// \see toWideString, operator std::string
     ///
     ////////////////////////////////////////////////////////////
     operator std::wstring() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Convert the unicode string to an ANSI string
-    ///
-    /// The current global locale is used for conversion. If you
-    /// want to explicitely specify a locale, see the other overload
-    /// of ToAnsiString.
-    /// Characters that do not fit in the target encoding are
-    /// discarded from the returned string.
-    ///
-    /// \return Converted ANSI string
-    ///
-    ////////////////////////////////////////////////////////////
-    std::string ToAnsiString() const;
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Convert the unicode string to an ANSI string
+    /// \brief Convert the Unicode string to an ANSI string
     ///
     /// The UTF-32 string is converted to an ANSI string in
-    /// the encoding defined by \a locale. If you want to use
-    /// the current global locale, see the other overload
-    /// of ToAnsiString.
+    /// the encoding defined by \a locale.
     /// Characters that do not fit in the target encoding are
     /// discarded from the returned string.
     ///
@@ -204,19 +247,56 @@ public :
     ///
     /// \return Converted ANSI string
     ///
+    /// \see toWideString, operator std::string
+    ///
     ////////////////////////////////////////////////////////////
-    std::string ToAnsiString(const std::locale& locale) const;
+    std::string toAnsiString(const std::locale& locale = std::locale()) const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Convert the unicode string to a wide string
+    /// \brief Convert the Unicode string to a wide string
     ///
     /// Characters that do not fit in the target encoding are
     /// discarded from the returned string.
     ///
     /// \return Converted wide string
     ///
+    /// \see toAnsiString, operator std::wstring
+    ///
     ////////////////////////////////////////////////////////////
-    std::wstring ToWideString() const;
+    std::wstring toWideString() const;
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Convert the Unicode string to a UTF-8 string
+    ///
+    /// \return Converted UTF-8 string
+    ///
+    /// \see toUtf16, toUtf32
+    ///
+    ////////////////////////////////////////////////////////////
+    std::basic_string<Uint8> toUtf8() const;
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Convert the Unicode string to a UTF-16 string
+    ///
+    /// \return Converted UTF-16 string
+    ///
+    /// \see toUtf8, toUtf32
+    ///
+    ////////////////////////////////////////////////////////////
+    std::basic_string<Uint16> toUtf16() const;
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Convert the Unicode string to a UTF-32 string
+    ///
+    /// This function doesn't perform any conversion, since the
+    /// string is already stored as UTF-32 internally.
+    ///
+    /// \return Converted UTF-32 string
+    ///
+    /// \see toUtf8, toUtf16
+    ///
+    ////////////////////////////////////////////////////////////
+    std::basic_string<Uint32> toUtf32() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Overload of assignment operator
@@ -227,36 +307,6 @@ public :
     ///
     ////////////////////////////////////////////////////////////
     String& operator =(const String& right);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Overload of += operator to append an ANSI character
-    ///
-    /// \param right Character to append
-    ///
-    /// \return Reference to self
-    ///
-    ////////////////////////////////////////////////////////////
-    String& operator +=(char right);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Overload of += operator to append a wide character
-    ///
-    /// \param right Character to append
-    ///
-    /// \return Reference to self
-    ///
-    ////////////////////////////////////////////////////////////
-    String& operator +=(wchar_t right);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Overload of += operator to append an UTF-32 character
-    ///
-    /// \param right Character to append
-    ///
-    /// \return Reference to self
-    ///
-    ////////////////////////////////////////////////////////////
-    String& operator +=(Uint32 right);
 
     ////////////////////////////////////////////////////////////
     /// \brief Overload of += operator to append an UTF-32 string
@@ -272,7 +322,7 @@ public :
     /// \brief Overload of [] operator to access a character by its position
     ///
     /// This function provides read-only access to characters.
-    /// Note: this function doesn't throw if \a index is out of range.
+    /// Note: the behavior is undefined if \a index is out of range.
     ///
     /// \param index Index of the character to get
     ///
@@ -285,7 +335,7 @@ public :
     /// \brief Overload of [] operator to access a character by its position
     ///
     /// This function provides read and write access to characters.
-    /// Note: this function doesn't throw if \a index is out of range.
+    /// Note: the behavior is undefined if \a index is out of range.
     ///
     /// \param index Index of the character to get
     ///
@@ -299,30 +349,30 @@ public :
     ///
     /// This function removes all the characters from the string.
     ///
-    /// \see IsEmpty, Erase
+    /// \see isEmpty, erase
     ///
     ////////////////////////////////////////////////////////////
-    void Clear();
+    void clear();
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the size of the string
     ///
     /// \return Number of characters in the string
     ///
-    /// \see IsEmpty
+    /// \see isEmpty
     ///
     ////////////////////////////////////////////////////////////
-    std::size_t GetSize() const;
+    std::size_t getSize() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Check whether the string is empty or not
     ///
     /// \return True if the string is empty (i.e. contains no character)
     ///
-    /// \see Clear, GetSize
+    /// \see clear, getSize
     ///
     ////////////////////////////////////////////////////////////
-    bool IsEmpty() const;
+    bool isEmpty() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Erase one or more characters from the string
@@ -334,7 +384,76 @@ public :
     /// \param count    Number of characters to erase
     ///
     ////////////////////////////////////////////////////////////
-    void Erase(std::size_t position, std::size_t count = 1);
+    void erase(std::size_t position, std::size_t count = 1);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Insert one or more characters into the string
+    ///
+    /// This function inserts the characters of \a str
+    /// into the string, starting from \a position.
+    ///
+    /// \param position Position of insertion
+    /// \param str      Characters to insert
+    ///
+    ////////////////////////////////////////////////////////////
+    void insert(std::size_t position, const String& str);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Find a sequence of one or more characters in the string
+    ///
+    /// This function searches for the characters of \a str
+    /// in the string, starting from \a start.
+    ///
+    /// \param str   Characters to find
+    /// \param start Where to begin searching
+    ///
+    /// \return Position of \a str in the string, or String::InvalidPos if not found
+    ///
+    ////////////////////////////////////////////////////////////
+    std::size_t find(const String& str, std::size_t start = 0) const;
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Replace a substring with another string
+    ///
+    /// This function replaces the substring that starts at index \a position
+    /// and spans \a length characters with the string \a replaceWith.
+    ///
+    /// \param position    Index of the first character to be replaced
+    /// \param length      Number of characters to replace. You can pass InvalidPos to
+    ///                    replace all characters until the end of the string.
+    /// \param replaceWith String that replaces the given substring.
+    ///
+    ////////////////////////////////////////////////////////////
+    void replace(std::size_t position, std::size_t length, const String& replaceWith);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Replace all occurrences of a substring with a replacement string
+    ///
+    /// This function replaces all occurrences of \a searchFor in this string
+    /// with the string \a replaceWith.
+    ///
+    /// \param searchFor   The value being searched for
+    /// \param replaceWith The value that replaces found \a searchFor values
+    ///
+    ////////////////////////////////////////////////////////////
+    void replace(const String& searchFor, const String& replaceWith);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Return a part of the string
+    ///
+    /// This function returns the substring that starts at index \a position
+    /// and spans \a length characters.
+    ///
+    /// \param position Index of the first character
+    /// \param length   Number of characters to include in the substring (if
+    ///                 the string is shorter, as many characters as possible
+    ///                 are included). \ref InvalidPos can be used to include all
+    ///                 characters until the end of the string.
+    ///
+    /// \return String object containing a substring of this object
+    ///
+    ////////////////////////////////////////////////////////////
+    String substring(std::size_t position, std::size_t length = InvalidPos) const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Get a pointer to the C-style array of characters
@@ -347,30 +466,30 @@ public :
     /// \return Read-only pointer to the array of characters
     ///
     ////////////////////////////////////////////////////////////
-    const Uint32* GetData() const;
+    const Uint32* getData() const;
 
     ////////////////////////////////////////////////////////////
     /// \brief Return an iterator to the beginning of the string
     ///
     /// \return Read-write iterator to the beginning of the string characters
     ///
-    /// \see End
+    /// \see end
     ///
     ////////////////////////////////////////////////////////////
-    Iterator Begin();
+    Iterator begin();
 
     ////////////////////////////////////////////////////////////
     /// \brief Return an iterator to the beginning of the string
     ///
     /// \return Read-only iterator to the beginning of the string characters
     ///
-    /// \see End
+    /// \see end
     ///
     ////////////////////////////////////////////////////////////
-    ConstIterator Begin() const;
+    ConstIterator begin() const;
 
     ////////////////////////////////////////////////////////////
-    /// \brief Return an iterator to the beginning of the string
+    /// \brief Return an iterator to the end of the string
     ///
     /// The end iterator refers to 1 position past the last character;
     /// thus it represents an invalid character and should never be
@@ -378,13 +497,13 @@ public :
     ///
     /// \return Read-write iterator to the end of the string characters
     ///
-    /// \see Begin
+    /// \see begin
     ///
     ////////////////////////////////////////////////////////////
-    Iterator End();
+    Iterator end();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Return an iterator to the beginning of the string
+    /// \brief Return an iterator to the end of the string
     ///
     /// The end iterator refers to 1 position past the last character;
     /// thus it represents an invalid character and should never be
@@ -392,23 +511,24 @@ public :
     ///
     /// \return Read-only iterator to the end of the string characters
     ///
-    /// \see Begin
+    /// \see begin
     ///
     ////////////////////////////////////////////////////////////
-    ConstIterator End() const;
+    ConstIterator end() const;
 
-private :
+private:
 
-    friend SFML_API bool operator ==(const String& left, const String& right);
-    friend SFML_API bool operator <(const String& left, const String& right);
+    friend SFML_SYSTEM_API bool operator ==(const String& left, const String& right);
+    friend SFML_SYSTEM_API bool operator <(const String& left, const String& right);
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    std::basic_string<Uint32> myString; ///< Internal string of UTF-32 characters
+    std::basic_string<Uint32> m_string; ///< Internal string of UTF-32 characters
 };
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of == operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
@@ -417,9 +537,10 @@ private :
 /// \return True if both strings are equal
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator ==(const String& left, const String& right);
+SFML_SYSTEM_API bool operator ==(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of != operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
@@ -428,86 +549,58 @@ SFML_API bool operator ==(const String& left, const String& right);
 /// \return True if both strings are different
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator !=(const String& left, const String& right);
+SFML_SYSTEM_API bool operator !=(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of < operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
 /// \param right Right operand (a string)
 ///
-/// \return True if \a left is alphabetically lesser than \a right
+/// \return True if \a left is lexicographically before \a right
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator <(const String& left, const String& right);
+SFML_SYSTEM_API bool operator <(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of > operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
 /// \param right Right operand (a string)
 ///
-/// \return True if \a left is alphabetically greater than \a right
+/// \return True if \a left is lexicographically after \a right
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator >(const String& left, const String& right);
+SFML_SYSTEM_API bool operator >(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of <= operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
 /// \param right Right operand (a string)
 ///
-/// \return True if \a left is alphabetically lesser or equal than \a right
+/// \return True if \a left is lexicographically before or equivalent to \a right
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator <=(const String& left, const String& right);
+SFML_SYSTEM_API bool operator <=(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of >= operator to compare two UTF-32 strings
 ///
 /// \param left  Left operand (a string)
 /// \param right Right operand (a string)
 ///
-/// \return True if \a left is alphabetically greater or equal than \a right
+/// \return True if \a left is lexicographically after or equivalent to \a right
 ///
 ////////////////////////////////////////////////////////////
-SFML_API bool operator >=(const String& left, const String& right);
+SFML_SYSTEM_API bool operator >=(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
-/// \brief Overload of binary + operator to concatenate a string and an ANSI character
-///
-/// \param left  Source string
-/// \param right Character to concatenate
-///
-/// \return Concatenated string
-///
-////////////////////////////////////////////////////////////
-SFML_API String operator +(const String& left, char right);
-
-////////////////////////////////////////////////////////////
-/// \brief Overload of binary + operator to concatenate a string and a wide character
-///
-/// \param left  Source string
-/// \param right Character to concatenate
-///
-/// \return Concatenated string
-///
-////////////////////////////////////////////////////////////
-SFML_API String operator +(const String& left, wchar_t right);
-
-////////////////////////////////////////////////////////////
-/// \brief Overload of binary + operator to concatenate a string and a UTF-32 character
-///
-/// \param left  Source string
-/// \param right Character to concatenate
-///
-/// \return Concatenated string
-///
-////////////////////////////////////////////////////////////
-SFML_API String operator +(const String& left, Uint32 right);
-
-////////////////////////////////////////////////////////////
+/// \relates String
 /// \brief Overload of binary + operator to concatenate two strings
 ///
 /// \param left  Left operand (a string)
@@ -516,7 +609,9 @@ SFML_API String operator +(const String& left, Uint32 right);
 /// \return Concatenated string
 ///
 ////////////////////////////////////////////////////////////
-SFML_API String operator +(const String& left, const String& right);
+SFML_SYSTEM_API String operator +(const String& left, const String& right);
+
+#include <SFML/System/String.inl>
 
 } // namespace sf
 
@@ -526,11 +621,12 @@ SFML_API String operator +(const String& left, const String& right);
 
 ////////////////////////////////////////////////////////////
 /// \class sf::String
+/// \ingroup system
 ///
 /// sf::String is a utility string class defined mainly for
 /// convenience. It is a Unicode string (implemented using
 /// UTF-32), thus it can store any character in the world
-/// (european, chinese, arabic, hebrew, etc.).
+/// (European, Chinese, Arabic, Hebrew, etc.).
 ///
 /// It automatically handles conversions from/to ANSI and
 /// wide strings, so that you can work with standard string
@@ -554,7 +650,7 @@ SFML_API String operator +(const String& left, const String& right);
 /// std::locale locale;
 /// sf::String s;
 /// ...
-/// std::string s1 = s.ToAnsiString(locale);
+/// std::string s1 = s.toAnsiString(locale);
 /// s = sf::String("hello", locale);
 /// \endcode
 ///

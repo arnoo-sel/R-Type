@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,7 +28,7 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Config.hpp>
+#include <SFML/System/Export.hpp>
 #include <SFML/System/NonCopyable.hpp>
 #include <cstdlib>
 
@@ -44,14 +44,14 @@ namespace priv
 /// \brief Defines variables with thread-local storage
 ///
 ////////////////////////////////////////////////////////////
-class SFML_API ThreadLocal : NonCopyable
+class SFML_SYSTEM_API ThreadLocal : NonCopyable
 {
-public :
+public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
     ///
-    /// \param value Optional value to initalize the variable
+    /// \param value Optional value to initialize the variable
     ///
     ////////////////////////////////////////////////////////////
     ThreadLocal(void* value = NULL);
@@ -68,7 +68,7 @@ public :
     /// \param value Value of the variable for the current thread
     ///
     ////////////////////////////////////////////////////////////
-    void SetValue(void* value);
+    void setValue(void* value);
 
     ////////////////////////////////////////////////////////////
     /// \brief Retrieve the thread-specific value of the variable
@@ -76,14 +76,14 @@ public :
     /// \return Value of the variable for the current thread
     ///
     ////////////////////////////////////////////////////////////
-    void* GetValue() const;
+    void* getValue() const;
 
-private :
+private:
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::ThreadLocalImpl* myImpl; ///< Pointer to the OS specific implementation
+    priv::ThreadLocalImpl* m_impl; ///< Pointer to the OS specific implementation
 };
 
 } // namespace sf
@@ -94,6 +94,7 @@ private :
 
 ////////////////////////////////////////////////////////////
 /// \class sf::ThreadLocal
+/// \ingroup system
 ///
 /// This class manipulates void* parameters and thus is not
 /// appropriate for strongly-typed variables. You should rather

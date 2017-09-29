@@ -22,11 +22,11 @@ private:
     QVector<sf::Sound*> sounds;
 
     short nbShips;
-    sf::Image shipsImage;
-    sf::Image rocketsImage;
-    sf::Image explosionImage;
-    sf::Image explosion2Image;
-    sf::Image animShipImage;
+    sf::Texture shipsImage;
+    sf::Texture rocketsImage;
+    sf::Texture explosionImage;
+    sf::Texture explosion2Image;
+    sf::Texture animShipImage;
     RMonsters* monsters;
 	sf::SoundBuffer explosionSound;
 	sf::SoundBuffer hitSound;
@@ -35,7 +35,7 @@ private:
 protected:
     void initActions();
 public:
-    typedef bool (RShips::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RShips::*action)(QMap<QString, QString>&);
 
     RShips(QString name);
     ~RShips();
@@ -47,7 +47,7 @@ public:
     void setMonsters(RMonsters *m);
     void die(int id);
     void isLoading(int, bool);
-    bool do_move(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_move(QMap<QString, QString>& properties);
     static QMap<QString, action> actions;
 };
 

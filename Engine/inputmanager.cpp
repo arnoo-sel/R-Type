@@ -3,37 +3,37 @@
 InputManager::InputManager()
 {
     std::cout << "Binding Keys." << std::endl;
-    for (int i = 0; i < sf::Key::Count ; i++)
+    for (int i = 0; i < sf::Keyboard::KeyCount ; i++)
     {
         actionKey[i] = NB_KEY;
     }
 
-    setBindingKey(sf::Key::Up, MOVE_UP);
-    setBindingKey(sf::Key::Down, MOVE_DOWN);
-    setBindingKey(sf::Key::Left, MOVE_LEFT);
-    setBindingKey(sf::Key::Right, MOVE_RIGHT);
-    setBindingKey(sf::Key::Space, USE_WEAPON_1);
-    setBindingKey(sf::Key::X, USE_WEAPON_2);
-    setBindingKey(sf::Key::Return, ENTER);
-    setBindingKey(sf::Key::Escape, EXIT);
+    setBindingKey(sf::Keyboard::Up, MOVE_UP);
+    setBindingKey(sf::Keyboard::Down, MOVE_DOWN);
+    setBindingKey(sf::Keyboard::Left, MOVE_LEFT);
+    setBindingKey(sf::Keyboard::Right, MOVE_RIGHT);
+    setBindingKey(sf::Keyboard::Space, USE_WEAPON_1);
+    setBindingKey(sf::Keyboard::X, USE_WEAPON_2);
+    setBindingKey(sf::Keyboard::Return, ENTER);
+    setBindingKey(sf::Keyboard::Escape, EXIT);
     std::cout << "Binding Keys Done." << std::endl;
 }
 
-void InputManager::setBindingKey(sf::Key::Code key, Action action)
+void InputManager::setBindingKey(sf::Keyboard::Key key, Action action)
 {
-    if (action < NB_KEY && key < sf::Key::Count)
+    if (action < NB_KEY && key < sf::Keyboard::KeyCount)
     {
         actionKey[key] = action;
         actionCode[action] = key;
     }
 }
 
-InputManager::Action InputManager::getAction(sf::Key::Code key)
+InputManager::Action InputManager::getAction(sf::Keyboard::Key key)
 {
     return actionKey[key];
 }
 
-sf::Key::Code InputManager::getKey(Action action)
+sf::Keyboard::Key InputManager::getKey(Action action)
 {
     return actionCode[action];
 }

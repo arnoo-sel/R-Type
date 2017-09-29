@@ -1,6 +1,6 @@
 #include "monster.hpp"
 
-Monster::Monster(sf::Image& img, int id, int type, int pos_x, int pos_y, float speed_x, float speed_y)
+Monster::Monster(sf::Texture& img, int id, int type, int pos_x, int pos_y, float speed_x, float speed_y)
 {
     _img = img;
     _type = type;
@@ -8,8 +8,8 @@ Monster::Monster(sf::Image& img, int id, int type, int pos_x, int pos_y, float s
     _pos.y = pos_y;
     _speed.x = speed_x;
     _speed.y = speed_y;
-    _spr.SetImage(_img);
-    _spr.SetPosition(_pos);
+    _spr.setTexture(_img);
+    _spr.setPosition(_pos);
 }
 
 void Monster::setTrajectory(float pos_x, float pos_y, float speed_x, float speed_y, float time)
@@ -25,12 +25,12 @@ void Monster::setTrajectory(float pos_x, float pos_y, float speed_x, float speed
 
 void Monster::move()
 {
-    float time = _clock.GetElapsedTime();
+    float time = _clock.getElapsedTime().asSeconds();
 
-    _spr.SetPosition(_pos);
-    _spr.Move(_speed.x * time, _speed.y * time);
-    _pos = _spr.GetPosition();
-    _clock.Reset();
+    _spr.setPosition(_pos);
+    _spr.move(_speed.x * time, _speed.y * time);
+    _pos = _spr.getPosition();
+    _clock.restart();
 }
 
 sf::Sprite Monster::getSprite()
@@ -50,5 +50,5 @@ int Monster::getType()
 
 void Monster::resetClock()
 {
-    _clock.Reset();
+    _clock.restart();
 }

@@ -33,14 +33,14 @@
 class RSprite : public sf::Sprite, public Ressource
 {
 public:
-	typedef bool (RSprite::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RSprite::*action)(QMap<QString, QString>&);
 
 	RSprite(QString name, RImage* rImage);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_transition(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
+    bool do_transition(QMap<QString, QString>& properties);
 
 	void initActions();
 

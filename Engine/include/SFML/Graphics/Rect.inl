@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -24,130 +24,114 @@
 
 
 ////////////////////////////////////////////////////////////
-/// Default constructor
-////////////////////////////////////////////////////////////
 template <typename T>
 Rect<T>::Rect() :
-Left  (0),
-Top   (0),
-Right (0),
-Bottom(0)
+left  (0),
+top   (0),
+width (0),
+height(0)
 {
 
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Construct the color from its coordinates
-////////////////////////////////////////////////////////////
 template <typename T>
-Rect<T>::Rect(T left, T top, T right, T bottom) :
-Left  (left),
-Top   (top),
-Right (right),
-Bottom(bottom)
+Rect<T>::Rect(T rectLeft, T rectTop, T rectWidth, T rectHeight) :
+left  (rectLeft),
+top   (rectTop),
+width (rectWidth),
+height(rectHeight)
 {
 
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Get the size of the rectangle
-////////////////////////////////////////////////////////////
 template <typename T>
-Vector2<T> Rect<T>::GetSize() const
+Rect<T>::Rect(const Vector2<T>& position, const Vector2<T>& size) :
+left  (position.x),
+top   (position.y),
+width (size.x),
+height(size.y)
 {
-    return Vector2<T>(Right - Left, Bottom - Top);
+
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Get the center of the rectangle
-////////////////////////////////////////////////////////////
 template <typename T>
-Vector2<T> Rect<T>::GetCenter() const
+template <typename U>
+Rect<T>::Rect(const Rect<U>& rectangle) :
+left  (static_cast<T>(rectangle.left)),
+top   (static_cast<T>(rectangle.top)),
+width (static_cast<T>(rectangle.width)),
+height(static_cast<T>(rectangle.height))
 {
-    return Vector2<T>((Left + Right) / 2, (Top + Bottom) / 2);
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Move the whole rectangle by the given offset
-////////////////////////////////////////////////////////////
 template <typename T>
-void Rect<T>::Offset(T offsetX, T offsetY)
+bool Rect<T>::contains(T x, T y) const
 {
-    Left   += offsetX;
-    Right  += offsetX;
-    Top    += offsetY;
-    Bottom += offsetY;
+    // Rectangles with negative dimensions are allowed, so we must handle them correctly
+
+    // Compute the real min and max of the rectangle on both axes
+    T minX = std::min(left, static_cast<T>(left + width));
+    T maxX = std::max(left, static_cast<T>(left + width));
+    T minY = std::min(top, static_cast<T>(top + height));
+    T maxY = std::max(top, static_cast<T>(top + height));
+
+    return (x >= minX) && (x < maxX) && (y >= minY) && (y < maxY);
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Move the whole rectangle by the given offset
-////////////////////////////////////////////////////////////
 template <typename T>
-void Rect<T>::Offset(const Vector2<T>& offset)
+bool Rect<T>::contains(const Vector2<T>& point) const
 {
-    Offset(offset.x, offset.y);
+    return contains(point.x, point.y);
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Check if a point is inside the rectangle's area
-////////////////////////////////////////////////////////////
 template <typename T>
-bool Rect<T>::Contains(T x, T y) const
+bool Rect<T>::intersects(const Rect<T>& rectangle) const
 {
-    return (x >= Left) && (x <= Right) && (y >= Top) && (y <= Bottom);
+    Rect<T> intersection;
+    return intersects(rectangle, intersection);
 }
 
 
 ////////////////////////////////////////////////////////////
-/// Check if a point is inside the rectangle's area
-////////////////////////////////////////////////////////////
 template <typename T>
-bool Rect<T>::Contains(const Vector2<T>& point) const
+bool Rect<T>::intersects(const Rect<T>& rectangle, Rect<T>& intersection) const
 {
-    return Contains(point.x, point.y);
-}
+    // Rectangles with negative dimensions are allowed, so we must handle them correctly
 
+    // Compute the min and max of the first rectangle on both axes
+    T r1MinX = std::min(left, static_cast<T>(left + width));
+    T r1MaxX = std::max(left, static_cast<T>(left + width));
+    T r1MinY = std::min(top, static_cast<T>(top + height));
+    T r1MaxY = std::max(top, static_cast<T>(top + height));
 
-////////////////////////////////////////////////////////////
-/// Check intersection between two rectangles
-////////////////////////////////////////////////////////////
-template <typename T>
-bool Rect<T>::Intersects(const Rect<T>& rectangle) const
-{
-    // Compute overlapping rect
-    Rect<T> overlapping(std::max(Left,   rectangle.Left),
-                        std::max(Top,    rectangle.Top),
-                        std::min(Right,  rectangle.Right),
-                        std::min(Bottom, rectangle.Bottom));
+    // Compute the min and max of the second rectangle on both axes
+    T r2MinX = std::min(rectangle.left, static_cast<T>(rectangle.left + rectangle.width));
+    T r2MaxX = std::max(rectangle.left, static_cast<T>(rectangle.left + rectangle.width));
+    T r2MinY = std::min(rectangle.top, static_cast<T>(rectangle.top + rectangle.height));
+    T r2MaxY = std::max(rectangle.top, static_cast<T>(rectangle.top + rectangle.height));
 
-    // If overlapping rect is valid, then there is intersection
-    return (overlapping.Left < overlapping.Right) && (overlapping.Top < overlapping.Bottom);
-}
+    // Compute the intersection boundaries
+    T interLeft   = std::max(r1MinX, r2MinX);
+    T interTop    = std::max(r1MinY, r2MinY);
+    T interRight  = std::min(r1MaxX, r2MaxX);
+    T interBottom = std::min(r1MaxY, r2MaxY);
 
-
-////////////////////////////////////////////////////////////
-/// Check intersection between two rectangles and return the
-/// resulting rectangle
-////////////////////////////////////////////////////////////
-template <typename T>
-bool Rect<T>::Intersects(const Rect<T>& rectangle, Rect<T>& intersection) const
-{
-    // Compute overlapping rect
-    Rect<T> overlapping(std::max(Left,   rectangle.Left),
-                        std::max(Top,    rectangle.Top),
-                        std::min(Right,  rectangle.Right),
-                        std::min(Bottom, rectangle.Bottom));
-
-    // If overlapping rect is valid, then there is intersection
-    if ((overlapping.Left < overlapping.Right) && (overlapping.Top < overlapping.Bottom))
+    // If the intersection is valid (positive non zero area), then there is an intersection
+    if ((interLeft < interRight) && (interTop < interBottom))
     {
-        intersection = overlapping;
+        intersection = Rect<T>(interLeft, interTop, interRight - interLeft, interBottom - interTop);
         return true;
     }
     else
@@ -155,4 +139,21 @@ bool Rect<T>::Intersects(const Rect<T>& rectangle, Rect<T>& intersection) const
         intersection = Rect<T>(0, 0, 0, 0);
         return false;
     }
+}
+
+
+////////////////////////////////////////////////////////////
+template <typename T>
+inline bool operator ==(const Rect<T>& left, const Rect<T>& right)
+{
+    return (left.left == right.left) && (left.width == right.width) &&
+           (left.top == right.top) && (left.height == right.height);
+}
+
+
+////////////////////////////////////////////////////////////
+template <typename T>
+inline bool operator !=(const Rect<T>& left, const Rect<T>& right)
+{
+    return !(left == right);
 }

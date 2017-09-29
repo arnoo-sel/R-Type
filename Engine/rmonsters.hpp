@@ -17,18 +17,18 @@ class RMonsters : public Ressource
 private:
     QMap<int, Monster*> monsters;
     QMap<int, Bullet*> bullets;
-    QMap<char, sf::Image> monstersImages;
+    QMap<char, sf::Texture> monstersImages;
     QVector<Animation*> annimations;
 	QVector<sf::Sound*> sounds;
 
-    sf::Image bulletsImage;
-    sf::Image animExplosionImage;
+    sf::Texture bulletsImage;
+    sf::Texture animExplosionImage;
 	sf::SoundBuffer explosionSound;
 
 protected:
     void initActions();
 public:
-    typedef bool (RMonsters::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RMonsters::*action)(QMap<QString, QString>&);
 
     RMonsters(QString name);
     ~RMonsters();
@@ -39,7 +39,7 @@ public:
     void fire(int id, int pX, int pY, float sX, float sY);
     void bulletExplode(int id);
     void die(int id);
-    bool do_move(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_move(QMap<QString, QString>& properties);
     static QMap<QString, action> actions;
 };
 

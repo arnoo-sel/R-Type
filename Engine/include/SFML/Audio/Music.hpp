@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2009 Laurent Gomila (laurent.gom@gmail.com)
+// Copyright (C) 2007-2017 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
 // In no event will the authors be held liable for any damages arising from the use of this software.
@@ -28,26 +28,26 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
+#include <SFML/Audio/Export.hpp>
 #include <SFML/Audio/SoundStream.hpp>
+#include <SFML/Audio/InputSoundFile.hpp>
 #include <SFML/System/Mutex.hpp>
+#include <SFML/System/Time.hpp>
 #include <string>
 #include <vector>
 
 
 namespace sf
 {
-namespace priv
-{
-    class SoundFile;
-}
+class InputStream;
 
 ////////////////////////////////////////////////////////////
 /// \brief Streamed music played from an audio file
 ///
 ////////////////////////////////////////////////////////////
-class SFML_API Music : public SoundStream
+class SFML_AUDIO_API Music : public SoundStream
 {
-public :
+public:
 
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
@@ -64,49 +64,77 @@ public :
     ////////////////////////////////////////////////////////////
     /// \brief Open a music from an audio file
     ///
-    /// This function doesn't start playing the music (call Play()
+    /// This function doesn't start playing the music (call play()
     /// to do so).
-    /// Here is a complete list of all the supported audio formats:
-    /// ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
-    /// w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
+    /// See the documentation of sf::InputSoundFile for the list
+    /// of supported formats.
+    ///
+    /// \warning Since the music is not loaded at once but rather
+    /// streamed continuously, the file must remain accessible until
+    /// the sf::Music object loads a new music or is destroyed.
     ///
     /// \param filename Path of the music file to open
     ///
     /// \return True if loading succeeded, false if it failed
     ///
-    /// \see OpenFromMemory
+    /// \see openFromMemory, openFromStream
     ///
     ////////////////////////////////////////////////////////////
-    bool OpenFromFile(const std::string& filename);
+    bool openFromFile(const std::string& filename);
 
     ////////////////////////////////////////////////////////////
     /// \brief Open a music from an audio file in memory
     ///
-    /// This function doesn't start playing the music (call Play()
+    /// This function doesn't start playing the music (call play()
     /// to do so).
-    /// Here is a complete list of all the supported audio formats:
-    /// ogg, wav, flac, aiff, au, raw, paf, svx, nist, voc, ircam,
-    /// w64, mat4, mat5 pvf, htk, sds, avr, sd2, caf, wve, mpc2k, rf64.
+    /// See the documentation of sf::InputSoundFile for the list
+    /// of supported formats.
+    ///
+    /// \warning Since the music is not loaded at once but rather streamed
+    /// continuously, the \a data buffer must remain accessible until
+    /// the sf::Music object loads a new music or is destroyed. That is,
+    /// you can't deallocate the buffer right after calling this function.
     ///
     /// \param data        Pointer to the file data in memory
     /// \param sizeInBytes Size of the data to load, in bytes
     ///
     /// \return True if loading succeeded, false if it failed
     ///
-    /// \see OpenFromFile
+    /// \see openFromFile, openFromStream
     ///
     ////////////////////////////////////////////////////////////
-    bool OpenFromMemory(const char* data, std::size_t sizeInBytes);
+    bool openFromMemory(const void* data, std::size_t sizeInBytes);
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Open a music from an audio file in a custom stream
+    ///
+    /// This function doesn't start playing the music (call play()
+    /// to do so).
+    /// See the documentation of sf::InputSoundFile for the list
+    /// of supported formats.
+    ///
+    /// \warning Since the music is not loaded at once but rather
+    /// streamed continuously, the \a stream must remain accessible
+    /// until the sf::Music object loads a new music or is destroyed.
+    ///
+    /// \param stream Source stream to read from
+    ///
+    /// \return True if loading succeeded, false if it failed
+    ///
+    /// \see openFromFile, openFromMemory
+    ///
+    ////////////////////////////////////////////////////////////
+    bool openFromStream(InputStream& stream);
 
     ////////////////////////////////////////////////////////////
     /// \brief Get the total duration of the music
     ///
-    /// \return Music duration, in seconds
+    /// \return Music duration
     ///
     ////////////////////////////////////////////////////////////
-    float GetDuration() const;
+    Time getDuration() const;
 
-private :
+protected:
 
     ////////////////////////////////////////////////////////////
     /// \brief Request a new chunk of audio samples from the stream source
@@ -119,23 +147,31 @@ private :
     /// \return True to continue playback, false to stop
     ///
     ////////////////////////////////////////////////////////////
-    virtual bool OnGetData(Chunk& data);
+    virtual bool onGetData(Chunk& data);
 
     ////////////////////////////////////////////////////////////
     /// \brief Change the current playing position in the stream source
     ///
-    /// \param timeOffset New playing position, in seconds
+    /// \param timeOffset New playing position, from the beginning of the music
     ///
     ////////////////////////////////////////////////////////////
-    virtual void OnSeek(float timeOffset);
+    virtual void onSeek(Time timeOffset);
+
+private:
+
+    ////////////////////////////////////////////////////////////
+    /// \brief Initialize the internal state after loading a new music
+    ///
+    ////////////////////////////////////////////////////////////
+    void initialize();
 
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    priv::SoundFile*   myFile;     ///< Sound file
-    float              myDuration; ///< Music duration, in seconds
-    std::vector<Int16> mySamples;  ///< Temporary buffer of samples
-    Mutex              myMutex;    ///< Mutex protecting the data
+    InputSoundFile     m_file;     ///< The streamed music file
+    Time               m_duration; ///< Music duration
+    std::vector<Int16> m_samples;  ///< Temporary buffer of samples
+    Mutex              m_mutex;    ///< Mutex protecting the data
 };
 
 } // namespace sf
@@ -146,12 +182,16 @@ private :
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Music
+/// \ingroup audio
 ///
 /// Musics are sounds that are streamed rather than completely
 /// loaded in memory. This is especially useful for compressed
 /// musics that usually take hundreds of MB when they are
 /// uncompressed: by streaming it instead of loading it entirely,
 /// you avoid saturating the memory and have almost no loading delay.
+/// This implies that the underlying resource (file, stream or
+/// memory buffer) must remain valid for the lifetime of the
+/// sf::Music object.
 ///
 /// Apart from that, a sf::Music has almost the same features as
 /// the sf::SoundBuffer / sf::Sound pair: you can play/pause/stop
@@ -160,7 +200,7 @@ private :
 ///
 /// As a sound stream, a music is played in its own thread in order
 /// not to block the rest of the program. This means that you can
-/// leave the music alone after calling Play(), it will manage itself
+/// leave the music alone after calling play(), it will manage itself
 /// very well.
 ///
 /// Usage example:
@@ -169,19 +209,19 @@ private :
 /// sf::Music music;
 ///
 /// // Open it from an audio file
-/// if (!music.OpenFromFile("music.ogg"))
+/// if (!music.openFromFile("music.ogg"))
 /// {
 ///     // error...
 /// }
 ///
 /// // Change some parameters
-/// music.SetPosition(0, 1, 10); // change its 3D position
-/// music.SetPitch(2);           // increase the pitch
-/// music.SetVolume(50);         // reduce the volume
-/// music.SetLoop(true);         // make it loop
+/// music.setPosition(0, 1, 10); // change its 3D position
+/// music.setPitch(2);           // increase the pitch
+/// music.setVolume(50);         // reduce the volume
+/// music.setLoop(true);         // make it loop
 ///
 /// // Play it
-/// music.Play();
+/// music.play();
 /// \endcode
 ///
 /// \see sf::Sound, sf::SoundStream

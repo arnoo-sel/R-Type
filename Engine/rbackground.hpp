@@ -11,14 +11,14 @@
 class RBackGround : public Ressource
 {
 public:
-	typedef bool (RBackGround::*action)(QMap<QString, QString>&, const sf::Input&);
+    typedef bool (RBackGround::*action)(QMap<QString, QString>&);
 
 	RBackGround(QString name, RImage* bg, RImage *fg);
 
 	static QMap<QString, action> actions;
 protected:
-	bool do_display(QMap<QString, QString>& properties, const sf::Input& input);
-	bool do_transition(QMap<QString, QString>& properties, const sf::Input& input);
+    bool do_display(QMap<QString, QString>& properties);
+    bool do_transition(QMap<QString, QString>& properties);
 
 	void initActions();
 

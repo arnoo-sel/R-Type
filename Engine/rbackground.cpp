@@ -10,19 +10,19 @@ RBackGround::RBackGround(QString name, RImage *bg, RImage *fg) :
 {
 	_bg = bg;
 	_fg = fg;
-	sfg = new sf::Sprite(*_fg);
-	sbg = new sf::Sprite(*_bg);
-	sfg2 = new sf::Sprite(*_fg);
-	sbg2 = new sf::Sprite(*_bg);
-	sfg2->SetX(_fg->GetWidth());
-	sbg2->SetX(_bg->GetWidth());
+    sfg = new sf::Sprite(_fg->texture());
+    sbg = new sf::Sprite(_bg->texture());
+    sfg2 = new sf::Sprite(_fg->texture());
+    sbg2 = new sf::Sprite(_bg->texture());
+    sfg2->setPosition(_fg->getSize().x, sfg2->getPosition().y);
+    sbg2->setPosition(_bg->getSize().x, sbg2->getPosition().y);
 	initActions();
 	first = true;
 }
 
 #define DEFAULT_PROP_VALUE(prop, val) if (!properties.count(prop)) properties[prop] = val
 
-bool RBackGround::do_display(QMap<QString, QString>& properties, const sf::Input& input)
+bool RBackGround::do_display(QMap<QString, QString>& properties)
 {
 	Window &win = Window::instance();
 
@@ -44,34 +44,34 @@ bool RBackGround::do_display(QMap<QString, QString>& properties, const sf::Input
 
 	_times[properties["id"]] = times[properties["id"]];
 
-	sbg->SetColor(sf::Color(255,255,255, _properties["a"].toFloat()));
-	sfg->SetColor(sf::Color(255,255,255, _properties["a"].toFloat()));
-	sbg2->SetColor(sf::Color(255,255,255, _properties["a"].toFloat()));
-	sfg2->SetColor(sf::Color(255,255,255, _properties["a"].toFloat()));
+    sbg->setColor(sf::Color(255,255,255, _properties["a"].toFloat()));
+    sfg->setColor(sf::Color(255,255,255, _properties["a"].toFloat()));
+    sbg2->setColor(sf::Color(255,255,255, _properties["a"].toFloat()));
+    sfg2->setColor(sf::Color(255,255,255, _properties["a"].toFloat()));
 
-	sbg->Move(-movementBG, 0);
-	sfg->Move(-movementFG, 0);
-	sbg2->Move(-movementBG, 0);
-	sfg2->Move(-movementFG, 0);
+    sbg->move(-movementBG, 0);
+    sfg->move(-movementFG, 0);
+    sbg2->move(-movementBG, 0);
+    sfg2->move(-movementFG, 0);
 
-	if (sbg->GetPosition().x < -(int)_bg->GetWidth())
-		sbg->Move(_bg->GetWidth() * 2., 0);
-	if (sbg2->GetPosition().x < -(int)_bg->GetWidth())
-		sbg2->Move(_bg->GetWidth() * 2., 0);
-	if (sfg->GetPosition().x < -(int)_fg->GetWidth())
-		sfg->Move(_fg->GetWidth() * 2., 0);
-	if (sfg2->GetPosition().x < -(int)_fg->GetWidth())
-		sfg2->Move(_fg->GetWidth() * 2., 0);
+    if (sbg->getPosition().x < -(int)_bg->getSize().x)
+        sbg->move(_bg->getSize().x * 2., 0);
+    if (sbg2->getPosition().x < -(int)_bg->getSize().x)
+        sbg2->move(_bg->getSize().x * 2., 0);
+    if (sfg->getPosition().x < -(int)_fg->getSize().x)
+        sfg->move(_fg->getSize().x * 2., 0);
+    if (sfg2->getPosition().x < -(int)_fg->getSize().x)
+        sfg2->move(_fg->getSize().x * 2., 0);
 
-	win.Draw(*sbg);
-	win.Draw(*sbg2);
-	win.Draw(*sfg);
-	win.Draw(*sfg2);
+    win.draw(*sbg);
+    win.draw(*sbg2);
+    win.draw(*sfg);
+    win.draw(*sfg2);
 
 	return true;
 }
 
-bool RBackGround::do_transition(QMap<QString, QString> &properties, const sf::Input& input)
+bool RBackGround::do_transition(QMap<QString, QString> &properties)
 {
 	float time = times[properties["id"]];
 	float time_ratio = time / properties["length"].toFloat();
